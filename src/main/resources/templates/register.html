@@ -57,15 +57,18 @@
             </div>
         </div>
         <div class="col-lg-6 fonts mt-5">
-            <section th:if="${status != null}" class="input-group">
-                <div th:if="${status == 'USERNAME_IN_USE'}" class="alert alert-dark">
-                    Username is already in use!
+            <section th:if="${status != null}" th:switch="${status}" class="input-group">
+                <div th:th:case="'USERNAME_IN_USE'" class="alert alert-dark">
+                    <span>Username is already in use!</span>
                 </div>
-                <div th:if="${status == 'EMAIL_IN_USE'}" class="alert alert-dark">
-                    Email is already in use!
+                <div th:th:case="'EMAIL_IN_USE'" class="alert alert-dark">
+                    <span>Email is already in use!</span>
                 </div>
-                <div th:if="${status == 'PASSWORD_DOESNT_MEET_REQUIREMENTS'}" class="alert alert-dark">
-                    Password must include number, upper and lower case character and have minimum length of 8!
+                <div  th:th:case="'PASSWORD_DOESNT_MEET_REQUIREMENTS'" class="alert alert-dark">
+                    <span>Password must include number, upper and lower case character and have minimum length of 8!</span>
+                </div>
+                <div  th:th:case="'INVALID_EMAIL'" class="alert alert-dark">
+                    <span>Invalid email!</span>
                 </div>
             </section>
             <form method="post" action="/register" class="input-group">

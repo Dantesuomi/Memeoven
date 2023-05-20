@@ -1,6 +1,5 @@
 package com.memeoven.memeoven.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

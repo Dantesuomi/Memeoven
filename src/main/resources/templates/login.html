@@ -59,29 +59,34 @@
       </div>
       <div class="ms-5 text-center">
         <a class="mt-5">
-          <img th:src="@{/images/peepo_happy.png}" style="width: 300px" alt="meme" class="square">
+          <img th:src="@{/images/peepo_happy.png}" style="width: 350px" alt="meme" class="square">
         </a>
       </div>
     </div>
     <div class="col-lg-6 fonts">
-      <div class="input-group">
+      <section th:if="${status != null}" th:switch="${status}" class="input-group">
+        <div  th:th:case="'INVALID_EMAIL_OR_PASSWORD'" class="alert alert-dark">
+          <span>Invalid email or password!</span>
+        </div>
+      </section>
+      <form method="post" action="/login" class="input-group">
         <div class="input-group mt-5 text-end me-5">
           <h1 class="bold fonts text-white me-5 mt-5">Welcome back?</h1>
         </div>
         <div class="input-group text-white mt-1 mb-1">
           <label class="form-label fonts size">Email
-            <input class="form-control grey form-middle3" type="text" placeholder="Email" required>
+            <input name="username" class="form-control grey form-middle3" type="text" placeholder="Username" required>
           </label>
         </div>
         <div class="input-group text-white mt-1">
           <label class="form-label fonts size">Password
-            <input class="form-control grey form-middle3" type="text" placeholder="Password" required>
+            <input name="password" class="form-control grey form-middle3" type="password" placeholder="Password" required>
           </label>
         </div>
         <div class="input-group text-end mt-3">
           <button class="btn btn-warning btn-sm bold form-middle3" type="submit">Log in</button>
         </div>
-      </div>
+      </form>
     </div>
 </div>
 </div>

@@ -23,11 +23,10 @@ public class User {
     private String nameOfProfilePhoto;
     @Column(columnDefinition="TEXT")
     private String about;
-    private String passwordHash;
+    private String password;
     private Gender gender;
+    private String role;
     private Date dateOfBirth;
     @CreationTimestamp
     private Date createdAt;
-
-
 }
