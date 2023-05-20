@@ -1,0 +1,59 @@
+.navbar-text {
+    font-family: 'Potta One',serif;
+}
+
+.form-control{
+    font-family: 'Poppins',serif;
+}
+
+.fonts{
+    font-family: 'Poppins',serif;
+
+}
+.size{
+    font-size: small;
+}
+
+.margin-top{
+    margin-top: 120px;
+}
+
+.bg-custom-dark-lighter {
+    background-color: #333333;
+}
+
+div.a{
+    text-align: right;
+}
+
+.form-middle{
+    width: 285px;
+}
+
+.form-large{
+    width: 828px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.nav-link.active.text-warning {
+    color: yellow !important;
+}
+
+.nav-link.text-warning:not(.active) {
+    color: white !important;
+}
