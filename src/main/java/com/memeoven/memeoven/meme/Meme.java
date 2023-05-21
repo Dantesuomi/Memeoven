@@ -1,6 +1,6 @@
-package com.memeoven.memeoven.entity;
+package com.memeoven.memeoven.meme;
 
-
+import com.memeoven.memeoven.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,19 +13,18 @@ import java.sql.Date;
 @NoArgsConstructor
 @Data
 @Entity
-public class Comment {
+public class Meme {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String title;
+    private Category category;
+    private String nameOfMemePhoto;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne
-    @JoinColumn(name = "meme_id")
-    private Meme meme;
-    @Column(columnDefinition="TEXT")
-    private String comment;
     @CreationTimestamp
     private Date createdAt;
+
 
 }

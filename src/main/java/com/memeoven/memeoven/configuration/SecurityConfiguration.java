@@ -28,6 +28,7 @@ public class SecurityConfiguration {
                                 //.requestMatchers("/").permitAll()
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/profile").authenticated()
+                                .requestMatchers("/upload").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/css/**", "/images/**", "/favicon.ico").permitAll()
                                 .anyRequest().permitAll()
                 );

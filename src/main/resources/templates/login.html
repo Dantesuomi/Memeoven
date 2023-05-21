@@ -63,10 +63,10 @@
         </a>
       </div>
     </div>
-    <div class="col-lg-6 fonts">
-      <section th:if="${status != null}" th:switch="${status}" class="input-group">
-        <div  th:th:case="'INVALID_EMAIL_OR_PASSWORD'" class="alert alert-dark">
-          <span>Invalid email or password!</span>
+    <div class="col-lg-6 fonts mt-5">
+      <section th:if="${error != null}" class="input-group">
+        <div  class="alert alert-dark">
+          <span>Invalid username or password!</span>
         </div>
       </section>
       <form method="post" action="/login" class="input-group">

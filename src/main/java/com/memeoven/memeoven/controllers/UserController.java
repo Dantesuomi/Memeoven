@@ -1,9 +1,11 @@
 package com.memeoven.memeoven.controllers;
 
+import com.memeoven.memeoven.entity.User;
 import com.memeoven.memeoven.entity.UserDto;
 import com.memeoven.memeoven.entity.RegistrationStatus;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +24,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public String displayLoginPage(
-            @RequestParam(name = "status", required = false) String status,
+            @RequestParam(name = "error", required = false) String error,
             Model model
    ){
-        model.addAttribute("status", status);
+        model.addAttribute("error", error);
         return "login";
     }
 
     @GetMapping("/register")
-    public String showRegisterPage(
+    public String displayRegisterPage(
             @RequestParam(name = "status", required = false)
             String status,
             Model model
@@ -58,10 +60,13 @@ public class UserController {
         }
         userService.createUser(userDto);
         return "login";
+        //TODO SAVE MEME TO DATABASE
     }
 
     @GetMapping("/profile")
-    public String showProfilePage(){
+    public String displayProfilePage(){
         return "profile";
     }
+
+
 }

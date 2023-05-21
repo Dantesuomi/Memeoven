@@ -1,6 +1,5 @@
 package com.memeoven.memeoven.services;
 
-import com.memeoven.memeoven.entity.MyUserDetails;
 import com.memeoven.memeoven.entity.User;
 import com.memeoven.memeoven.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Could not find user");
         }
 
-        return new MyUserDetails(user);
+        return user;
     }
 }
