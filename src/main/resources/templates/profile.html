@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
-    <link href="styles/main.css" rel="stylesheet">
+    <link href="../static/css/main.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Potta One' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +29,7 @@
     <div class="container-fluid">
         <div class="navbar-left d-flex">
             <a class="navbar-brand" href="#">
-                <img src="/templates/images/logo.svg" alt="Logo" style="width: 73px; height:53px" class="square">
+                <img src="/images/logo.svg" alt="Logo" style="width: 73px; height:53px" class="square">
             </a>
             <span class="h1 navbar-text text-white">memeoven</span>
         </div>
@@ -40,10 +40,10 @@
                     <button class="btn btn-warning" type="submit">Go</button>
                 </div>
             </form>
-            <a th:href="@{/login}" class="btn btn-dark me-2 text-white" th:if="${!loggedIn}">Log in</a>
+            <!--<a th:href="@{/login}" class="btn btn-dark me-2 text-white" th:if="${!loggedIn}">Log in</a>
             <button class="btn btn-dark me-2 text-white" th:if="${loggedIn}" disabled>Not you?</button>
             <a th:href="@{/logout}" class="btn btn-warning me-2" th:if="${loggedIn}">Log out</a>
-            <a th:href="@{/register}" class="btn btn-warning" th:unless="${loggedIn}">Sign up</a>
+            <a th:href="@{/register}" class="btn btn-warning" th:unless="${loggedIn}">Sign up</a>-->
         </div>
     </div>
 </nav>
@@ -52,28 +52,28 @@
         <div class="col-sm-3 fonts size border-end border-warning">
             <div class="margin-top ms-5 mb-2 fonts">
                 <a>
-                    <img src="/templates/images/homey.svg" alt="Homey" style="width: 30px;" class="square">
+                    <img src="/images/homey.svg" alt="Homey" style="width: 30px;" class="square">
                 </a>
                 <span class="fonts ms-3">
                      <a class="links fonts text-white" href="/home">Homey</a></span>
             </div>
             <div class="ms-5 mb-2">
                 <a>
-                    <img src="/templates/images/topofthetop.svg" alt="Top" style="width: 30px;" class="square">
+                    <img src="/images/topofthetop.svg" alt="Top" style="width: 30px;" class="square">
                 </a>
                 <span class="fonts ms-3">
                      <a class="links fonts text-white" href="/top-rate">Top of the top</a></span>
             </div>
             <div class="ms-5">
                 <a>
-                    <img src="/templates/images/niceAndFresh.svg" alt="Fresh" style="width: 30px;" class="square">
+                    <img src="/images/niceAndFresh.svg" alt="Fresh" style="width: 30px;" class="square">
                 </a>
                 <span class="fonts ms-3">
                      <a class="links fonts text-white" href="/new">Nice and fresh</a></span>
             </div>
             <div class="mt-5 ms-5">
                 <a>
-                <img src="/templates/images/profiley.svg" alt="Logo" style="width: 30px;" class="square">
+                <img src="/images/profiley.svg" alt="Logo" style="width: 30px;" class="square">
             </a>
                 <span class="fonts ms-3">
                      <a class="links fonts text-white" href="/profile">Profiley</a></span>

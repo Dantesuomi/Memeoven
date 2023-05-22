@@ -1,7 +1,6 @@
-package com.memeoven.memeoven.entity;
+package com.memeoven.memeoven.meme;
 
 public enum Category {
-
     FOOD,
     PEPEGA,
     WORK,

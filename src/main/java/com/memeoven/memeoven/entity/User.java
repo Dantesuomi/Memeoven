@@ -5,27 +5,64 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.Collection;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique = true)
     private String username;
+    @Column(unique = true)
     private String email;
     private String nameOfProfilePhoto;
     @Column(columnDefinition="TEXT")
     private String about;
-    private String passwordHash;
+    private String password;
     private Gender gender;
+    private String role;
     private Date dateOfBirth;
     @CreationTimestamp
     private Date createdAt;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(this.getRole());
+        return Arrays.asList(authority);
+    }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

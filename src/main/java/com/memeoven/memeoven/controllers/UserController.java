@@ -1,45 +1,72 @@
 package com.memeoven.memeoven.controllers;
 
 import com.memeoven.memeoven.entity.User;
+import com.memeoven.memeoven.entity.UserDto;
+import com.memeoven.memeoven.entity.RegistrationStatus;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import com.memeoven.memeoven.services.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
-import services.UserService;
 
 @Controller
 public class UserController {
 
     private UserService userService;
 
-    //TODO
-
     @Autowired
     public UserController(UserService userService){
         this.userService = userService;
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public String displayLoginPage(
-            @RequestParam(name = "status", required = false) String status,
-            @RequestParam(name = "message", required = false) String message,
+            @RequestParam(name = "error", required = false) String error,
             Model model
-    ){
-        model.addAttribute("status", status);
-        model.addAttribute("message", message);
+   ){
+        model.addAttribute("error", error);
         return "login";
     }
 
-
-    @PostMapping("/login")
-    public String handleLogin(LoginRequest loginRequest){
-        try {
-            User loggedInUser = this.userService.verifyUser(loginRequest.email, loginRequest.passwordHash);
-            return "redirect:chat-room";
-        }catch (Exception exception){
-            return "redirect: login?status=LOGIN FAILEDmessage="+ exception.getMessage();
-        }
+    @GetMapping("/register")
+    public String displayRegisterPage(
+            @RequestParam(name = "status", required = false)
+            String status,
+            Model model
+    ) {
+        model.addAttribute("status", status);
+        return "register";
     }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") @Valid UserDto userDto){
+        boolean isUsernameInUse = userService.isUsernameInUse(userDto.getUsername());
+        boolean isEmailInUse = userService.isEmailInUse(userDto.getEmail());
+        boolean isValidPassword = userService.isValidPassword(userDto.getPassword());
+        boolean isValidEmail = userService.isValidEmail(userDto.getEmail());
+        if (!isValidEmail) {
+            return "redirect:register?status=" + RegistrationStatus.INVALID_EMAIL;
+        } else if (isUsernameInUse){
+            return "redirect:register?status=" + RegistrationStatus.USERNAME_IN_USE;
+        } else if (isEmailInUse) {
+            return "redirect:register?status=" + RegistrationStatus.EMAIL_IN_USE;
+        } else if (!isValidPassword) {
+            return "redirect:register?status=" + RegistrationStatus.PASSWORD_DOESNT_MEET_REQUIREMENTS;
+        }
+        userService.createUser(userDto);
+        return "login";
+        //TODO SAVE MEME TO DATABASE
+    }
+
+    @GetMapping("/profile")
+    public String displayProfilePage(){
+        return "profile";
+    }
+
+
 }
