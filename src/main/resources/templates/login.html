@@ -69,13 +69,18 @@
           <span>Invalid username or password!</span>
         </div>
       </section>
+      <section th:if="${status == 'REGISTRATION_SUCCESS'}" class="input-group">
+        <div  class="alert alert-dark">
+          <span>Registration successful! Please, log in</span>
+        </div>
+      </section>
       <form method="post" action="/login" class="input-group">
         <div class="input-group mt-5 text-end me-5">
           <h1 class="bold fonts text-white me-5 mt-5">Welcome back?</h1>
         </div>
         <div class="input-group text-white mt-1 mb-1">
           <label class="form-label fonts size">Email
-            <input name="username" class="form-control form-middle3 bg-light text-warning" type="text" placeholder="Username" required>
+            <input name="username" class="form-control form-middle3 bg-light" type="text" placeholder="Username" required>
           </label>
         </div>
         <div class="input-group text-white mt-1">
