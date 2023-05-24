@@ -1,0 +1,24 @@
+<div th:fragment="navbar">
+  <nav class="navbar navbar-expand bg-dark">
+    <div class="container-fluid">
+      <div class="navbar-left d-flex">
+        <a class="navbar-brand" href="#">
+          <img src="/images/logo.svg" alt="Logo" style="width: 73px; height:53px" class="square">
+        </a>
+        <span class="h1 navbar-text text-white">memeoven</span>
+      </div>
+      <div class="navbar-right d-flex ms-auto">
+        <form class="me-2">
+          <div class="input-group">
+            <input class="form-control bg-light" type="text" placeholder="Search for kek">
+            <button class="btn btn-warning" type="submit">Go</button>
+          </div>
+        </form>
+        <a th:href="@{/login}" class="btn btn-dark me-2 text-white" th:if="${loggedIn == false}">Log in</a>
+        <button class="btn btn-dark me-2 text-white" th:if="${loggedIn == true}" disabled>Not you?</button>
+        <a th:href="@{/logout}" class="btn btn-warning me-2" th:if="${loggedIn == true}">Log out</a>
+        <a th:href="@{/register}" class="btn btn-warning" th:unless="${loggedIn == true}">Sign up</a>
+      </div>
+    </div>
+  </nav>
+</div>

@@ -1,11 +1,15 @@
 package com.memeoven.memeoven.controllers;
 
+import com.memeoven.memeoven.entity.LoginRequest;
 import com.memeoven.memeoven.entity.User;
 import com.memeoven.memeoven.entity.UserDto;
 import com.memeoven.memeoven.entity.RegistrationStatus;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +32,13 @@ public class UserController {
     public String displayLoginPage(
             @RequestParam(name = "error", required = false) String error,
             Model model
-   ){
+
+    ){
         model.addAttribute("error", error);
         return "login";
     }
+
+
 
     @GetMapping("/register")
     public String displayRegisterPage(
@@ -65,6 +72,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String displayProfilePage(){
+
         return "profile";
     }
 
@@ -73,5 +81,17 @@ public class UserController {
         return "meme-page";
     }
 
+    @ModelAttribute("loggedIn")
+    public boolean loggedIn(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("JSESSIONID")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }
