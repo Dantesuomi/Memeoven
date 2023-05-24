@@ -68,5 +68,10 @@ public class UserController {
         return "profile";
     }
 
+    @GetMapping("/meme-page")
+    public String displayMemePage(){
+        return "meme-page";
+    }
+
 
 }
