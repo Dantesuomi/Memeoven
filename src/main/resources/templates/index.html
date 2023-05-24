@@ -28,7 +28,7 @@
     margin-top: 120px;
   }
   .bg-custom-dark-lighter {
-    background-color: #333333; /* Replace with a slightly lighter shade of dark grey */
+    background-color: #333333;
   }
 
 
@@ -37,8 +37,19 @@
     justify-content: space-between;
     gap: 30px;
     flex-wrap: wrap;
-    margin-left: auto; /* Add this line to move everything to the right */
+    margin-left: auto;
   }
+
+
+ /* .memes-heading {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 63px;
+    line-height: 96px;
+    color: #FFFFFF;
+    font-weight: bold;
+  }*/
 
   .memes-heading {
     font-family: 'Poppins';
@@ -50,7 +61,19 @@
     font-weight: bold;
   }
 
+  @media screen and (max-width: 768px) {
+    .memes-heading {
+      font-size: 40px;
+      line-height: 60px;
+    }
+  }
 
+  @media screen and (max-width: 480px) {
+    .memes-heading {
+      font-size: 30px;
+      line-height: 45px;
+    }
+  }
   .food-disappointment {
     font-family: 'Poppins';
     font-style: normal;
@@ -58,23 +81,21 @@
     font-size: 24px;
     line-height: 36px;
     color: #FFFFFF;
-    height: 31px;
-    width: 266px;
+    height: auto;
+    width: auto;
     margin-top: 20px;
   }
 
   .custom-image {
-    width: 400px;
-    height: 400px;
+    max-width: 100%;
+    height: auto;
     margin-top: 20px;
   }
 
-  .like-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .button-position {
     margin-top: 20px;
   }
+
 
   .align-right {
     text-align: right;
@@ -89,9 +110,9 @@
     width: 20px;
     height: 34px;
   }
+
   .custom-border {
     position: relative;
-    border-right: 1px #ffc107; /* Specify the width and color of the border */
     height: 100%; /* Ensure the element has a height */
   }
 
@@ -104,6 +125,11 @@
     border-right: 1px solid #ffc107; /* Specify the width and color of the border */
   }
 
+  @media screen and (max-width: 1400px) {
+    .custom-border::after {
+      display: none; /* Hide only the border */
+    }
+  }
 </style>
 
 
@@ -134,8 +160,10 @@
 
 <div class="container-fluid-expand">
   <div class="row">
-    <div class="col-lg-11 fonts size custom-border">
-      <h1 class="memes-heading align-right" style="margin-top: 0;">Legendary Memes</h1>
+    <div class="col-lg-11 fonts size">
+      <h1 class="memes-heading align-right" style="margin-top: 0;">
+        legendary memes
+      </h1>
     </div>
   </div>
 </div>
@@ -174,25 +202,33 @@
       <div class="mt-5 bg-custom-dark-lighter text-center">
         <h4 class="text-white btn"> Choose your fighter</h4>
       </div>
+
+
       <div class="mb-1 bg-custom-dark-lighter text-center">
-        <div class="mb-1 btn-group-sm fonts">
-          <button type="button" class="btn grey me-2 text-white">food</button>
-          <button type="button" class="btn grey me-2 text-white">pepega</button>
-          <button type="button" class="btn grey me-2 text-white">work</button>
+        <div class="mb-1 btn-group-md fonts">
+            <button type="button" class="btn grey me-2 text-white" onclick="location.href='#';">food</button>
+            <button type="button" class="btn grey me-2 text-white" onclick="location.href='';">pepega</button>
+            <button type="button" class="btn grey me-2 text-white" onclick="location.href='/work';">work</button>
         </div>
+
         <div class="mb-1 bg-custom-dark-lighter">
-          <div class=" mb-1 btn-group-sm">
-            <button type="button" class="btn grey me-2 text-white">politics</button>
-            <button type="button" class="btn grey me-2 text-white">anime</button>
-            <button type="button" class="btn grey me-2 text-white">animals</button>
+          <div class=" mb-1 btn-group-md">
+              <button type="button" class="btn grey me-2 text-white" onclick="location.href='/';">politics</button>
+              <button type="button" class="btn grey me-2 text-white" onclick="location.href='/';">anime</button>
+              <button type="button" class="btn grey me-2 text-white" onclick="location.href='/';">animals</button>
           </div>
+
+
           <div class="bg-custom-dark-lighter">
-            <div class="btn-group-sm">
-              <button type="button" class="btn grey me-2 text-white">gaming</button>
-              <button type="button" class="btn grey me-2 text-white">adult</button>
+            <div class="btn-group-md">
+                <button type="button" class="btn grey me-2 text-white" onclick="location.href='/';">gaming</button>
+                <button type="button" class="btn grey me-2 text-white" onclick="location.href='/';">adult</button>
             </div>
           </div>
+
+
         </div>
+
       </div>
     </div>
 
@@ -202,7 +238,29 @@
     </div>
 
     <div class="col-lg-3 col-md-12" style="margin-top: 130px;">
+      <div class="food-disappointment">
+        food disappointment
+      </div>
 
+      <div>
+        <a>
+          <img src="../static/images/image1.png" class="custom-image">
+        </a>
+     </div>
+        <div class="button-container">
+          <a href="/like">
+            <img src="../static/images/like.svg">
+          </a>
+          <span id="likeCount" style="color: #e7a90b;">0</span>
+          <a href="/comments.svg">
+            <img src="../static/images/comments.svg">
+          </a>
+          <span id="commentCount" style="color: #e7a90b;">0</span>
+          <a href="/save.svg">
+            <img src="../static/images/save.svg">
+          </a>
+        </div>
+        <button type="button" class="btn grey me-2 text-white button-position">food</button>
 
       <div class="food-disappointment">
         food disappointment
@@ -212,35 +270,27 @@
         <a>
           <img src="../static/images/image1.png" class="custom-image">
         </a>
-
-        <form>
-          <div class="like-container">
-            <a href="/like/22">
-              <img src="../static/images/like.svg">
-            </a>
-          </div>
-        </form>
-      </div>
-
-
-      <div>
-        <a>
-          <img src="../static/images/image1.png" class="custom-image">
-        </a>
-        <div class="like-container">
-          <a href="/like/22">
+        <div class="button-container">
+          <a href="/like">
             <img src="../static/images/like.svg">
           </a>
+          <span id="likeCount" style="color: #e7a90b;">0</span>
+          <a href="/comments.svg">
+            <img src="../static/images/comments.svg">
+          </a>
+          <span id="commentCount" style="color: #e7a90b;">0</span>
+          <a href="/save.svg">
+            <img src="../static/images/save.svg">
+          </a>
         </div>
+        <button type="button" class="btn grey me-2 text-white button-position">food</button>
       </div>
     </div>
 
 
-
-
     <div class="col-lg-3 col-md-12"style="margin-top: 130px;">
 
-      <div class="food-disappointment">
+      <div class="food-disappointment minimize-memes-heading">
         food disappointment
       </div>
 
@@ -248,22 +298,52 @@
         <a>
           <img src="../static/images/image1.png" class="custom-image">
         </a>
-        <div class="like-container">
-          <a href="/like/22">
+
+        <div class="button-container">
+          <a href="/like">
             <img src="../static/images/like.svg">
           </a>
+          <span id="likeCount" style="color: #e7a90b;">0</span>
+          <a href="/comments.svg">
+            <img src="../static/images/comments.svg">
+          </a>
+          <span id="commentCount" style="color: #e7a90b;">0</span>
+          <a href="/save.svg">
+            <img src="../static/images/save.svg">
+          </a>
         </div>
-      </div>
+            <button type="button" class="btn grey me-2 text-white button-position">food</button>
 
+
+
+      <div class="food-disappointment minimize-memes-heading">
+        food disappointment
+      </div>
 
       <div>
         <a>
           <img src="../static/images/image1.png" class="custom-image">
         </a>
-        <div class="like-container">
-          <a href="/like/22">
-            <img src="../static/images/like.svg">
-          </a>
+
+                 <div class="button-container">
+              <a href="/like">
+                <img src="../static/images/like.svg">
+              </a>
+              <span id="likeCount" style="color: #e7a90b;">0</span>
+              <a href="/comments.svg">
+                <img src="../static/images/comments.svg">
+              </a>
+              <span id="commentCount" style="color: #e7a90b;">0</span>
+              <a href="/save.svg">
+                <img src="../static/images/save.svg">
+              </a>
+              </div>
+
+            <button type="button" class="btn grey me-2 text-white button-position">food</button>
+
+
+
+
         </div>
       </div>
     </div>
