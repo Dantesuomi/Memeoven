@@ -62,9 +62,4 @@ public class UserService {
         return regex.matcher(email).matches();
     }
 
-    public User verifyUser(String username, String password) throws Exception {
-        User user = this.userRepository.findByUsernameAndPassword(username,password);
-        if (user == null) throw new Exception("Username or password is not correct");
-        return user;
-    }
 }
