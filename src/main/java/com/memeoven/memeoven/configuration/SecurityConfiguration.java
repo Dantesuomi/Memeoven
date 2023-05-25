@@ -25,6 +25,7 @@ public class SecurityConfiguration {
                 )
                 .authorizeHttpRequests(
                         authorize -> authorize
+                                .requestMatchers("/").permitAll()
                                 .requestMatchers("/register").anonymous()
                                 .requestMatchers("/login").anonymous()
                                 .requestMatchers("/profile").authenticated()
