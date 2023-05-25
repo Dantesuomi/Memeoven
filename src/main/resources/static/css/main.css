@@ -57,3 +57,7 @@ div.a{
 .nav-link.text-warning:not(.active) {
     color: white !important;
 }
+
+.btn{
+    font-family: 'Poppins',serif;
+}

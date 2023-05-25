@@ -1,26 +1,24 @@
 package com.memeoven.memeoven.meme;
 
 import com.memeoven.memeoven.entity.User;
-import com.memeoven.memeoven.storage.StorageService;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 public class MemeController {
 
-    private MemeFileService memeFileService;
+    private MemeService memeService;
     @Autowired
-    public MemeController(MemeFileService memeFileService) {
-        this.memeFileService = memeFileService;
+    public MemeController(MemeService memeService) {
+        this.memeService = memeService;
     }
     @GetMapping("/upload")
     public String displayUploadPage(@AuthenticationPrincipal User user,
@@ -28,20 +26,24 @@ public class MemeController {
     ){
         return "upload";
     }
-
-    //TODO Validate Title (not empty, not null)
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   @AuthenticationPrincipal User user,
-                                   @RequestParam ("title") String title,
-                                  // @RequestParam ("category") Category category,
-                                   RedirectAttributes redirectAttributes) {
-
-        String memeId = memeFileService.save(file).toString();
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+    public String handleMemeUpload(@AuthenticationPrincipal User user,
+                                   @ModelAttribute("meme") @Valid MemeDto memeDto) {
+        memeService.saveMeme(memeDto, user);
 
         return "redirect:/";
     }
+
+    @GetMapping("/")
+    public String displayMainPage(@AuthenticationPrincipal User user,
+                                    Model model
+    ){
+        List<Meme> memes = memeService.getAllMemes();
+        model.addAttribute("memes", memes);
+        return "index";
+    }
+
+
+
 
 }

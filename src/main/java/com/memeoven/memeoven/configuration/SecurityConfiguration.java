@@ -19,18 +19,19 @@ public class SecurityConfiguration {
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/profile", true)
                 .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .and()
+                .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                )
                 .authorizeHttpRequests(
                         authorize -> authorize
+                                .requestMatchers("/").permitAll()
                                 .requestMatchers("/register").anonymous()
-                                //.requestMatchers("/").permitAll()
-                                .requestMatchers("/login").permitAll()
+                                .requestMatchers("/login").anonymous()
                                 .requestMatchers("/profile").authenticated()
                                 .requestMatchers("/upload").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/css/**", "/images/**", "/favicon.ico").permitAll()
-                                .anyRequest().permitAll()
+                                .requestMatchers(HttpMethod.GET, "/css/**", "/images/**","/memes/**", "/favicon.ico").permitAll()
+                                //.anyRequest().permitAll()
                 );
         return http.build();
     }

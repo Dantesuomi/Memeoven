@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Meme-page</title>
+  <link th:href="@{/css/main.css}" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Potta One' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .grey{
+      border-color: #464745;
+      background-color: #464745;
+    }
+    .bg-custom-dark-lighter {
+      background-color: #333333;
+    }
+    .form-large{
+      width: 828px;
+    }
+    .form-middle{
+      width: 285px;
+    }
+    .button-container {
+      display: flex;
+      align-items: start;
+      justify-content: left;
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body style="background-color: #333333">
+<nav class="navbar navbar-expand bg-dark">
+  <div class="container-fluid">
+    <div class="navbar-left d-flex">
+      <a class="navbar-brand" href="#">
+        <img src="/images/logo.svg" alt="Logo" style="width: 73px; height:53px" class="square">
+      </a>
+      <span class="h1 navbar-text text-white">memeoven</span>
+    </div>
+    <div class="navbar-right d-flex ms-auto">
+      <form class="me-2">
+        <div class="input-group">
+          <input class="form-control bg-light" type="text" placeholder="Search for kek">
+          <button class="btn btn-warning" type="submit">Go</button>
+        </div>
+      </form>
+      <!--<a th:href="@{/login}" class="btn btn-dark me-2 text-white" th:if="${!loggedIn}">Log in</a>
+      <button class="btn btn-dark me-2 text-white" th:if="${loggedIn}" disabled>Not you?</button>
+      <a th:href="@{/logout}" class="btn btn-warning me-2" th:if="${loggedIn}">Log out</a>
+      <a th:href="@{/register}" class="btn btn-warning" th:unless="${loggedIn}">Sign up</a>-->
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-3 col-md-12 fonts size border-end border-warning">
+      <div class="margin-top ms-5 mb-2 fonts">
+        <a>
+          <img src="/images/homey.svg" alt="Homey" style="width: 30px;" class="square">
+        </a>
+        <span class="fonts ms-3">
+                     <a class="links fonts text-white" href="/home">Homey</a></span>
+      </div>
+      <div class="ms-5 mb-2">
+        <a>
+          <img src="/images/topofthetop.svg" alt="Top" style="width: 30px;" class="square">
+        </a>
+        <span class="fonts ms-3">
+                     <a class="links fonts text-white" href="/top-rate">Top of the top</a></span>
+      </div>
+      <div class="ms-5">
+        <a>
+          <img src="/images/niceAndFresh.svg" alt="Fresh" style="width: 30px;" class="square">
+        </a>
+        <span class="fonts ms-3">
+                     <a class="links fonts text-white" href="/new">Nice and fresh</a></span>
+      </div>
+      <div class="mt-5 ms-5">
+        <a>
+          <img src="/images/profiley.svg" alt="Logo" style="width: 30px;" class="square">
+        </a>
+        <span class="fonts ms-3">
+                     <a class="links fonts text-white" href="/profile">Profiley</a></span>
+      </div>
+      <div class="mt-5 bg-custom-dark-lighter text-center">
+        <h4 class="text-white btn"> Choose your fighter</h4>
+      </div>
+      <div class="mb-1 bg-custom-dark-lighter text-center">
+        <div class="mb-1 btn-group-sm fonts">
+          <button type="button" class="btn grey me-2 text-white">food</button>
+          <button type="button" class="btn grey me-2 text-white">pepega</button>
+          <button type="button" class="btn grey text-white">work</button>
+        </div>
+        <div class="mb-1 bg-custom-dark-lighter">
+          <div class=" mb-1 btn-group-sm">
+            <button type="button" class="btn grey me-2 text-white">politics</button>
+            <button type="button" class="btn grey me-2 text-white">anime</button>
+            <button type="button" class="btn grey text-white">animals</button>
+          </div>
+          <div class="bg-custom-dark-lighter">
+            <div class="btn-group-sm">
+              <button type="button" class="btn grey me-2 text-white">gaming</button>
+              <button type="button" class="btn grey text-white">adult</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-12 fonts">
+      <div class="ms-5 mb-2 fonts">
+        <h2 class="mt-5 ms-5 text-white text-start">meme name</h2>
+        <div class="form-control text-start bg-custom-dark-lighter border-0">
+          <a>
+            <img src="/images/img_624d82554b5aa.png.webp" alt="meme" style="width: 300px;" class="square">
+          </a>
+          <div class="button-container text-warning">
+            <button type="button" class="btn" onclick="likeClicked()">
+              <img src="/images/like.svg" alt="like" style="width: 18px;" class="square">
+            </button>
+            <span id="likeCount">0</span>
+            <button type="button" class="btn" onclick="commentClicked()">
+              <img src="/images/comments.svg" alt="comment" style="width: 18px;" class="square">
+            </button>
+            <span id="commentCount">0</span>
+            <button type="button" class="btn" onclick="saveClicked()">
+              <img src="/images/save.svg" alt="save" style="width: 16px;" class="square">
+            </button>
+          </div>
+        </div>
+        <div class="mt-5 mb-5">
+          <button type="button" class="btn grey me-2 text-white">food</button>
+        </div>
+        <form>
+          <div class="text-start">
+            <label class="text-white fonts mb-2" for="comment">Write something here (we don't care)</label>
+            <textarea class="form-large bg-light border-warning" rows="5" id="comment" name="text"></textarea>
+          <div class="text-end">
+            <button type="reset" class="mt-2 btn btn-dark fonts btn-sm text-white">Cancel</button>
+            <button type="submit" class="mt-2 btn btn-warning fonts btn-sm">Post</button>
+          </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="mt-5">
+        <h3 class="text-white">Here we need to have a code for displaying comments</h3>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
