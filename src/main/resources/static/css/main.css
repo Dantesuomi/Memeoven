@@ -1,20 +1,21 @@
 .navbar-text {
-    font-family: 'Potta One',serif;
+    font-family: 'Potta One', serif;
 }
 
-.form-control{
-    font-family: 'Poppins',serif;
+.form-control {
+    font-family: 'Poppins', serif;
 }
 
-.fonts{
-    font-family: 'Poppins',serif;
+.fonts {
+    font-family: 'Poppins', serif;
 
 }
-.size{
+
+.size {
     font-size: small;
 }
 
-.margin-top{
+.margin-top {
     margin-top: 120px;
 }
 
@@ -22,15 +23,15 @@
     background-color: #333333;
 }
 
-div.a{
+div.a {
     text-align: right;
 }
 
-.form-middle{
+.form-middle {
     width: 285px;
 }
 
-.form-large{
+.form-large {
     width: 828px;
 }
 
@@ -58,6 +59,16 @@ div.a{
     color: white !important;
 }
 
-.btn{
-    font-family: 'Poppins',serif;
+.btn {
+    font-family: 'Poppins', serif;
 }
+
+.sticky {
+    position: sticky;
+    top: 0;
+}
+
+/*changes here*/
+
+
+

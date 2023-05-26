@@ -16,9 +16,8 @@
     justify-content: space-between;
     gap: 30px;
     flex-wrap: wrap;
-    margin-left: auto;
+    align-items: center;
   }
-
 
   .link-style {
     color: white;
@@ -72,11 +71,6 @@
     margin-top: 20px;
   }
 
-
-  .align-right {
-    text-align: right;
-  }
-
   .grey{
     border-color: #464745;
     background-color: #464745;
@@ -89,136 +83,46 @@
   }
 </style>
 
-
 <body style="background-color: #333333">
-
-
-<nav class="navbar bg-dark">
-  <div class="container-fluid">
-    <div class="navbar-start d-flex">
-      <a class="navbar-brand">
-        <img th:src="@{/images/logo.svg}" alt="Logo" style="width: 73px; height:53px" class="square">
-      </a>
-      <span class="h1 navbar-text text-white">memeoven</span>
-    </div>
-    <div class="navbar-end d-flex">
-      <form>
-        <div class="input-group">
-          <input class="form-control bg-light text-warning" type="text" placeholder="Search for kek">
-          <button class="btn btn-warning" type="submit">Go</button>
-        </div>
-      </form>
-      <a href="#" class="btn btn-dark me-2 text-white">Log in</a>
-      <a href="#" class="btn btn-warning me-2">Log out</a>
-      <a href="#" class="btn btn-warning">Sign up</a>
-    </div>
-  </div>
-</nav>
-
-
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-11 fonts size">
-      <h1 class="memes-heading align-right" style="margin-top: 0;">
+    <div th:replace="~{fragments/left-pane :: left-pane}"></div>
+    <div class="col-lg-8 col-md-12 fonts">
+      <h1 class="mt-5 memes-heading text-center" style="margin-top: 0;">
         legendary memes
       </h1>
-    </div>
-  </div>
-</div>
-
-<div class="container-fluid" style="margin-top: -130px;">
-  <div class="row">
-    <div class="col-lg-3 col-md-12 fonts size border-end border-warning">
-      <div class="margin-top ms-5 mb-2 fonts">
-        <a>
-          <img src="/images/homey.svg" alt="Homey" style="width: 30px;" class="square">
-        </a>
-        <span class="fonts ms-3">
-                     <a class="links fonts text-white" href="/home">Homey</a></span>
-      </div>
-      <div class="ms-5 mb-2">
-        <a>
-          <img src="/images/topofthetop.svg" alt="Top" style="width: 30px;" class="square">
-        </a>
-        <span class="fonts ms-3">
-                     <a class="links fonts text-white" href="/top-rate">Top of the top</a></span>
-      </div>
-      <div class="ms-5">
-        <a>
-          <img src="/images/niceAndFresh.svg" alt="Fresh" style="width: 30px;" class="square">
-        </a>
-        <span class="fonts ms-3">
-                     <a class="links fonts text-white" href="/new">Nice and fresh</a></span>
-      </div>
-      <div class="mt-5 ms-5">
-        <a>
-          <img src="/images/profiley.svg" alt="Logo" style="width: 30px;" class="square">
-        </a>
-        <span class="fonts ms-3">
-                     <a class="links fonts text-white" href="/profile">Profiley</a></span>
-      </div>
-      <div class="mt-5 bg-custom-dark-lighter text-center">
-        <h4 class="text-white btn"> Choose your fighter</h4>
-      </div>
-      <div class="mb-1 bg-custom-dark-lighter text-center">
-        <div class="mb-1 btn-group-sm fonts">
-          <button type="button" class="btn grey me-2 text-white">food</button>
-          <button type="button" class="btn grey me-2 text-white">pepega</button>
-          <button type="button" class="btn grey text-white">work</button>
-        </div>
-        <div class="mb-1 bg-custom-dark-lighter">
-          <div class=" mb-1 btn-group-sm">
-            <button type="button" class="btn grey me-2 text-white">politics</button>
-            <button type="button" class="btn grey me-2 text-white">anime</button>
-            <button type="button" class="btn grey text-white">animals</button>
+      <div th:each="meme: ${memes}" class="col-lg-5 col-md-12" style="margin-top: 130px;">
+        <div style="margin-bottom: 50px;"> <!-- foreach meme to this div-->
+          <div class="meme-title">
+            <span th:text="${meme.title}"></span>
           </div>
-          <div class="bg-custom-dark-lighter">
-            <div class="btn-group-sm">
-              <button type="button" class="btn grey me-2 text-white">gaming</button>
-              <button type="button" class="btn grey text-white">adult</button>
-            </div>
+          <div>
+            <a>
+              <img th:src="'/memes/' + ${meme.nameOfMemePhoto}" class="custom-image">
+            </a>
           </div>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="col-lg-2 col-md-6" >
-    </div>
-
-    <div th:each="meme: ${memes}" class="col-lg-5 col-md-12" style="margin-top: 130px;">
-      <div style="margin-bottom: 50px;"> <!-- foreach meme to this div-->
-        <div class="meme-title">
-          <span th:text="${meme.title}"></span>
-        </div>
-
-        <div>
-          <a>
-            <img th:src="'/memes/' + ${meme.nameOfMemePhoto}" class="custom-image">
-          </a>
-        </div>
-        <div class="button-container" style="margin-top: 20px;">
-          <a href="/like" style="color: #333333;">
-            <img th:src="@{/images/like.svg}">
-          </a>
-          <span id="likeCount" style="color: #e7a90b;">0</span>
-          <a href="/comments.svg" style="color: #333333;">
-            <img th:src="@{/images/comments.svg}">
-          </a>
-          <span id="commentCount" style="color: #e7a90b;">0</span>
-          <a href="/save.svg" style="color: #333333;">
-            <img th:src="@{/images/save.svg}">
-          </a>
-          <span>
+          <div class="button-container" style="margin-top: 20px;">
+            <a href="/like" style="color: #333333;">
+              <img th:src="@{/images/like.svg}">
+            </a>
+            <span id="likeCount" style="color: #e7a90b;">0</span>
+            <a href="/comments.svg" style="color: #333333;">
+              <img th:src="@{/images/comments.svg}">
+            </a>
+            <span id="commentCount" style="color: #e7a90b;">0</span>
+            <a href="/save.svg" style="color: #333333;">
+              <img th:src="@{/images/save.svg}">
+            </a>
+            <span>
              <a href="https://example.com/user-profile" class="link-style">@pepga</a>
             </span>
-        </div>
-        <button type="button" class="btn grey me-2 text-white button-position">food</button>
-      </div> <!-- foreach meme to this div-->
+          </div>
+          <button type="button" class="btn grey me-2 text-white button-position">food</button>
+        </div> <!-- foreach meme to this div-->
+      </div>
     </div>
   </div>
 </div>
-
 </body>
 </html>
