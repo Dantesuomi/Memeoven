@@ -30,8 +30,11 @@ public class SecurityConfiguration {
                                 .requestMatchers("/login").anonymous()
                                 .requestMatchers("/profile").authenticated()
                                 .requestMatchers("/upload").authenticated()
+                                .requestMatchers("/meme-page/{memeId}").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/comment").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/css/**", "/images/**","/memes/**", "/favicon.ico").permitAll()
                                 //.anyRequest().permitAll()
+
                 );
         return http.build();
     }

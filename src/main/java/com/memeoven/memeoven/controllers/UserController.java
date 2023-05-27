@@ -1,8 +1,13 @@
 package com.memeoven.memeoven.controllers;
 
+import com.memeoven.memeoven.entity.LoginRequest;
 import com.memeoven.memeoven.entity.User;
 import com.memeoven.memeoven.entity.UserDto;
 import com.memeoven.memeoven.entity.RegistrationStatus;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,11 +34,14 @@ public class UserController {
             @RequestParam(name = "error", required = false) String error,
             @RequestParam(name = "status", required = false) String status,
             Model model
-   ){
+
+    ){
         model.addAttribute("error", error);
         model.addAttribute("status", status);
         return "login";
     }
+
+
 
     @GetMapping("/register")
     public String displayRegisterPage(
@@ -67,12 +75,18 @@ public class UserController {
 
     @GetMapping("/profile")
     public String displayProfilePage(){
+
         return "profile";
     }
 
     @GetMapping("/meme-page")
     public String displayMemePage(){
         return "meme-page";
+    }
+
+    @ModelAttribute("loggedIn")
+    public boolean loggedIn(@AuthenticationPrincipal User user) {
+        return user != null;
     }
 
 

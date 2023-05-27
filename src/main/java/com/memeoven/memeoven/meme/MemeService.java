@@ -9,7 +9,6 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 @Service
@@ -35,7 +34,7 @@ public class MemeService {
     public List<Meme> getAllMemes(){
        List<Meme> memes = memeRepository.getMemesByIdIsNotNull();
        return memes;
-    }
 
+    }
 
 }

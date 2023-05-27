@@ -2,7 +2,6 @@ package com.memeoven.memeoven.meme;
 
 
 import com.memeoven.memeoven.entity.User;
-import com.memeoven.memeoven.meme.Meme;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
