@@ -1,4 +1,4 @@
-package com.memeoven.memeoven.entity;
+package com.memeoven.memeoven.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

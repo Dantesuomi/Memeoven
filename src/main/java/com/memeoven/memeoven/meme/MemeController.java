@@ -1,93 +1,73 @@
 package com.memeoven.memeoven.meme;
 
-import com.memeoven.memeoven.entity.User;
-import com.memeoven.memeoven.repository.CommentRepository;
-import com.memeoven.memeoven.storage.StorageService;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import com.memeoven.memeoven.comment.Comment;
+import com.memeoven.memeoven.comment.CommentService;
+import com.memeoven.memeoven.exceptions.ResourceNotFoundException;
+import com.memeoven.memeoven.user.User;
+import com.memeoven.memeoven.comment.CommentRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class MemeController {
 
-    private MemeFileService memeFileService;
-    private MemeRepository memeRepository;
-    private CommentRepository commentRepository;
     private MemeService memeService;
+    private CommentService commentService;
+
     @Autowired
-    public MemeController(MemeFileService memeFileService, MemeRepository memeRepository, CommentRepository commentRepository, MemeService memeService) {
-        this.memeFileService = memeFileService;
-        this.memeRepository = memeRepository;
-        this.commentRepository = commentRepository;
+    public MemeController(MemeService memeService, CommentService commentService) {
         this.memeService = memeService;
+        this.commentService = commentService;
     }
+
     @GetMapping("/upload")
     public String displayUploadPage(@AuthenticationPrincipal User user,
                                     Model model
-    ){
+    ) {
         return "upload";
     }
+
     @PostMapping("/upload")
     public String handleMemeUpload(@AuthenticationPrincipal User user,
                                    @ModelAttribute("meme") @Valid MemeDto memeDto) {
         memeService.saveMeme(memeDto, user);
-
         return "redirect:/";
     }
 
 
     @GetMapping("/meme-page/{memeId}")
     public String showMeme(@PathVariable("memeId") Long id, Model model, @AuthenticationPrincipal User user) {
-        Optional<Meme> memeOptional = memeRepository.findById(id);
-        if (memeOptional.isPresent()) {
-            Meme memeData = memeOptional.get();
-            String memeName = memeData.getTitle();
-            String memeCategory = String.valueOf(memeData.getCategory());
-            String userName = memeData.getUser().getUsername(); // Get the username directly
-
-            model.addAttribute("memeName", memeName);
-            model.addAttribute("memeCategory", memeCategory);
-            model.addAttribute("user", userName);
-            model.addAttribute("image", memeData.getNameOfMemePhoto());
-            model.addAttribute("userId", memeData.getUser().getId());
-
-            List<Comment> comments = commentRepository.findByMemeId(id);
-            model.addAttribute("comment", comments);
+        Meme meme = memeService.getMeme(id);
+        if(meme == null){
+            throw new ResourceNotFoundException();
         }
+        String memeCategory = String.valueOf(meme.getCategory());
+        model.addAttribute("memeName", meme.getTitle());
+        model.addAttribute("memeCategory", memeCategory);
+        model.addAttribute("user", meme.getUser().getUsername());
+        model.addAttribute("image", meme.getNameOfMemePhoto());
+        model.addAttribute("userId", meme.getUser().getId());
+        List<Comment> comments = commentService.getAllComments(id);
+        model.addAttribute("comment", comments);
         return "meme-page";
     }
 
     @PostMapping("/meme-page/{memeId}/comment")
-    public String sendComment(@PathVariable("memeId") Long id, @RequestParam("text") String text, Model model, @AuthenticationPrincipal User user) {
+    public String sendComment(@PathVariable("memeId") Long id, @RequestParam("text") String text, @AuthenticationPrincipal User user) {
         try {
-            Optional<Meme> memeOptional = memeRepository.findById(id);
-            if (memeOptional.isPresent()) {
-                Meme meme = memeOptional.get();
-                Comment comment = new Comment();
-                comment.setComment(text);
-                comment.setUser(user);
-                comment.setMeme(meme);
-                this.commentRepository.save(comment);
-            } else {
-                return "redirect:/error";
-            }
-
+            commentService.saveComment(text, id, user);
             return "redirect:/meme-page/{memeId}";
         } catch (Exception e) {
-            return "redirect:login" + e.getMessage();
+            return "redirect:/error";
         }
     }
 
@@ -98,21 +78,20 @@ public class MemeController {
 
     @GetMapping("/")
     public String displayMainPage(@AuthenticationPrincipal User user,
-                                    Model model
-    ){
+                                  Model model
+    ) {
         List<Meme> memes = memeService.getAllMemes();
         model.addAttribute("memes", memes);
         return "index";
     }
 
     @GetMapping("/category")
-    public String showCategoryPage(){
+    public String showCategoryPage() {
         return "category";
     }
 
     @GetMapping("/search")
-    public String showSearchPage(){
+    public String showSearchPage() {
         return "search-result";
     }
-
 }

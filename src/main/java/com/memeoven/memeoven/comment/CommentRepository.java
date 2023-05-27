@@ -1,7 +1,5 @@
-package com.memeoven.memeoven.repository;
+package com.memeoven.memeoven.comment;
 
-import com.memeoven.memeoven.meme.Comment;
-import com.memeoven.memeoven.meme.Meme;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

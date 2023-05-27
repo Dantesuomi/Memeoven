@@ -1,9 +1,5 @@
-package com.memeoven.memeoven.services;
+package com.memeoven.memeoven.user;
 
-import com.memeoven.memeoven.entity.Gender;
-import com.memeoven.memeoven.entity.User;
-import com.memeoven.memeoven.entity.UserDto;
-import com.memeoven.memeoven.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

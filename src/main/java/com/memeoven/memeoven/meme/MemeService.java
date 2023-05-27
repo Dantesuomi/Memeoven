@@ -1,14 +1,9 @@
 package com.memeoven.memeoven.meme;
 
-import com.memeoven.memeoven.entity.User;
-import com.memeoven.memeoven.repository.UserRepository;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import com.memeoven.memeoven.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @Service
@@ -31,10 +26,13 @@ public class MemeService {
         this.memeRepository.save(meme);
     }
 
+    public Meme getMeme(Long id){
+        return memeRepository.getMemeById(id);
+    }
+
     public List<Meme> getAllMemes(){
        List<Meme> memes = memeRepository.getMemesByIdIsNotNull();
        return memes;
-
     }
 
 }

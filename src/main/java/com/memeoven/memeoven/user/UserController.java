@@ -1,13 +1,5 @@
-package com.memeoven.memeoven.controllers;
+package com.memeoven.memeoven.user;
 
-import com.memeoven.memeoven.entity.LoginRequest;
-import com.memeoven.memeoven.entity.User;
-import com.memeoven.memeoven.entity.UserDto;
-import com.memeoven.memeoven.entity.RegistrationStatus;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.memeoven.memeoven.services.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
