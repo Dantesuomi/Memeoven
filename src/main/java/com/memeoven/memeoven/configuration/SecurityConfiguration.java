@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/error").permitAll()
                                 .requestMatchers("/meme-page/{memeId}").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/comment").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/css/**", "/images/**","/memes/**", "/favicon.ico").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/css/**", "/images/**","/memes/**", "/avatars/**", "/favicon.ico").permitAll()
 
                                 //.anyRequest().permitAll()
 

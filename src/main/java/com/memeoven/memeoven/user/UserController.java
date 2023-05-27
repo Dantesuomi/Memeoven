@@ -65,7 +65,8 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String displayProfilePage(){
+    public String displayProfilePage(@AuthenticationPrincipal User user, Model model){
+        model.addAttribute("user", user);
 
         return "profile";
     }
@@ -80,5 +81,9 @@ public class UserController {
         return user != null;
     }
 
+    @ModelAttribute("genders")
+    public Gender[] getGender() {
+        return Gender.values();
+    }
 
 }

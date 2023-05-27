@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 @Service
 public class UserService {
-    public static final String DEFAULT_AVATAR = "default.jpg";
+    public static final String DEFAULT_AVATAR = "default.png";
     public static final String ROLE_USER = "ROLE_USER";
 
     private UserRepository userRepository;

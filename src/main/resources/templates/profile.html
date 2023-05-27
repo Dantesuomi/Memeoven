@@ -33,11 +33,11 @@
             </div>
             <div class="profile">
                 <a class="ms-5 mb-5">
-                    <img src="logo.png" alt="profile" style="width: 60px;" class="square">
+                    <img th:src="'/avatars/' + ${user.getNameOfProfilePhoto()}" alt="profile" style="width: 60px;" class="square">
                 </a>
                 <div class="info">
-                    <span class="text-white fonts bold ms-2">uglypepe</span>
-                    <span class="text-white ms-2">aaa@gmail.com</span>
+                    <span class="text-white fonts bold ms-2" th:text="'@' + ${user.getUsername()}"></span>
+                    <span class="text-white ms-2" th:text="${user.getEmail()}"></span>
                 </div>
             </div>
             <div class="ms-5 mt-5">
@@ -51,12 +51,9 @@
                 <div class="mt-3 row">
                     <div class="col ms-5">
                     <label class="form-label text-white fonts size">Select gender</label>
-                    <select class="form-select form-middle bg-light" name="gender">
-                        <option>Select gender</option>
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
-                        <option value="NON_BINARY">Non binary</option>
-                        <option value="NOT_SPECIFIED">Not specified</option>
+                    <select th:field="*{user.gender}" class="form-select form-middle bg-light">
+                        <option th:each="gender : ${genders}" th:value="${gender}" th:text="${gender.getName()}"
+                                th:selected="${gender==user.getGender()}"></option>
                     </select>
                     </div>
                     <div class="col">
