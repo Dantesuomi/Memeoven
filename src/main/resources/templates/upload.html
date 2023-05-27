@@ -25,7 +25,9 @@
     </style>
 </head>
 <body style="background-color: #333333">
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="sticky-top">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-6 col-md-12 fonts">
@@ -51,6 +53,7 @@
                         <select class="mt-2 form-select form-middle2 bg-light" name="category">
                             <option value="food">food</option>
                             <option value="pepega">pepega</option>
+                            <option value="politics">politics</option>
                             <option value="work">work</option>
                             <option value="anime">anime</option>
                             <option value="animals">animals</option>

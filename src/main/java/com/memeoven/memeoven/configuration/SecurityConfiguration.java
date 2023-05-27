@@ -29,6 +29,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/profile").authenticated()
                                 .requestMatchers("/upload").authenticated()
+                                .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/comment").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/css/**", "/images/**", "/favicon.ico").permitAll()
                                 .anyRequest().permitAll()
                 );
