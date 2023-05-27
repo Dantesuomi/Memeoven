@@ -32,10 +32,12 @@ public class UserController {
     @GetMapping("/login")
     public String displayLoginPage(
             @RequestParam(name = "error", required = false) String error,
+            @RequestParam(name = "status", required = false) String status,
             Model model
 
     ){
         model.addAttribute("error", error);
+        model.addAttribute("status", status);
         return "login";
     }
 
@@ -67,8 +69,8 @@ public class UserController {
             return "redirect:register?status=" + RegistrationStatus.PASSWORD_DOESNT_MEET_REQUIREMENTS;
         }
         userService.createUser(userDto);
-        return "login";
-        //TODO SAVE MEME TO DATABASE
+        return "redirect:login?status=" + RegistrationStatus.REGISTRATION_SUCCESS;
+
     }
 
     @GetMapping("/profile")

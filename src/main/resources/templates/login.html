@@ -24,6 +24,7 @@
   </style>
 </head>
 <body>
+
 <div class="sticky-top">
   <div th:replace="~{fragments/navbar :: navbar}"></div>
 </div>
@@ -43,6 +44,11 @@
       <section th:if="${error != null}" class="input-group">
         <div  class="alert alert-dark">
           <span>Invalid username or password!</span>
+        </div>
+      </section>
+      <section th:if="${status == 'REGISTRATION_SUCCESS'}" class="input-group">
+        <div  class="alert alert-dark">
+          <span>Registration successful! Please, log in</span>
         </div>
       </section>
       <form method="post" action="/login" class="input-group">

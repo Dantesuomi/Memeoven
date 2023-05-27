@@ -37,7 +37,7 @@
             <div class="ms-5 input-group">
                 <form method="post" action="/upload" enctype="multipart/form-data" class="ms-5 text-white">
                     <label class="form-label fonts size">Title</label>
-                    <input class="form-control bg-light form-middle2" name="title" type="text" placeholder="Enter title">
+                    <input class="form-control bg-light form-middle2" name="title" type="text" placeholder="Enter title" required>
                     <div class="bg-light mt-3 p-3 text-center">
                         <a class="mt-5 mb-5"> <br> <br>
                             <img th:src="@{/images/upload_image.svg}" alt="profile" style="width: 30px;" class="square">
@@ -45,7 +45,7 @@
                         <span class="text-secondary size fonts mb-5">gif, jpeg, png</span><br>
                         <div class="mt-4 mb-5">
                             <label for="file-input" class="btn btn-warning btn-sm">Choose file</label>
-                            <input id="file-input" name="file" type="file" style="display: none;">
+                            <input id="file-input" name="file" type="file" style="display: none;" required>
                         </div>
                     </div>
                     <div class="mt-3">
@@ -55,6 +55,7 @@
                             <option value="pepega">pepega</option>
                             <option value="politics">politics</option>
                             <option value="work">work</option>
+                            <option value="politics">politics</option>
                             <option value="anime">anime</option>
                             <option value="animals">animals</option>
                             <option value="gaming">gaming</option>

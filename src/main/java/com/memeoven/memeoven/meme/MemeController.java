@@ -5,6 +5,7 @@ import com.memeoven.memeoven.repository.CommentRepository;
 import com.memeoven.memeoven.storage.StorageService;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,21 +40,14 @@ public class MemeController {
     ){
         return "upload";
     }
-
-    //TODO Validate Title (not empty, not null)
     @PostMapping("/upload")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   @AuthenticationPrincipal User user,
-                                   @RequestParam ("title") String title,
-                                  // @RequestParam ("category") Category category,
-                                   RedirectAttributes redirectAttributes) {
-
-        String memeId = memeFileService.save(file).toString();
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
+    public String handleMemeUpload(@AuthenticationPrincipal User user,
+                                   @ModelAttribute("meme") @Valid MemeDto memeDto) {
+        memeService.saveMeme(memeDto, user);
 
         return "redirect:/";
     }
+
 
     @GetMapping("/meme-page/{memeId}")
     public String showMeme(@PathVariable("memeId") Long id, Model model, @AuthenticationPrincipal User user) {
@@ -102,7 +98,7 @@ public class MemeController {
 
     @GetMapping("/")
     public String displayMainPage(@AuthenticationPrincipal User user,
-                                  Model model
+                                    Model model
     ){
         List<Meme> memes = memeService.getAllMemes();
         model.addAttribute("memes", memes);
@@ -118,6 +114,5 @@ public class MemeController {
     public String showSearchPage(){
         return "search-result";
     }
-
 
 }

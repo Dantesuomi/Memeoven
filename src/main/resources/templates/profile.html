@@ -13,12 +13,14 @@
         .form-large{
             width: 828px;
         }
-        .form-middle{
+
+        .form-middle {
             width: 285px;
         }
     </style>
 </head>
 <body style="background-color: #333333">
+
 <div class="sticky-top">
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 </div>
@@ -57,28 +59,29 @@
                         <option value="NOT_SPECIFIED">Not specified</option>
                     </select>
                     </div>
-                        <div class="col">
+                    <div class="col">
                         <label class="form-label text-white fonts size">Enter date of birth</label>
                         <input class="a form-control form-middle bg-light" type="date" placeholder="">
                     </div>
                 </div>
             </form>
-                <div class="mt-5 ms-5 mb-5">
-                    <form>
-                    <label class="text-white fonts" for="comment">What's on your mind:</label>
-                    <textarea class="form-control form-large bg-light border-warning" rows="5" id="comment" name="text"></textarea>
-            <button type="submit" class="mt-4 btn btn-warning fonts btn-sm">Save changes</button>
-                    </form>
-                </div>
-                <div class="mt-5 ms-5 mb-5">
-                    <span class="fonts text-white">Created something?</span>
-                    <span class="fonts text-warning">Share</span>
-                    <span class="fonts text-white">(we all want to kek)</span>
-                </div>
             <div class="mt-5 ms-5 mb-5">
                 <form>
-                <label class="text-white fonts size" for="comment">Upload your meme!</label><br>
-                <button type="link" class="mt-4 btn btn-warning fonts size btn-sm">Upload</button>
+                    <label class="text-white fonts" for="comment">What's on your mind:</label>
+                    <textarea class="form-control form-large bg-light border-warning" rows="5" id="comment"
+                              name="text"></textarea>
+                    <button type="submit" class="mt-4 btn btn-warning fonts btn-sm">Save changes</button>
+                </form>
+            </div>
+            <div class="mt-5 ms-5 mb-5">
+                <span class="fonts text-white">Created something?</span>
+                <span class="fonts text-warning">Share</span>
+                <span class="fonts text-white">(we all want to kek)</span>
+            </div>
+            <div class="mt-5 ms-5 mb-5">
+                <form>
+                    <label class="text-white fonts size" for="comment">Upload your meme!</label><br>
+                    <button type="link" class="mt-4 btn btn-warning fonts size btn-sm">Upload</button>
                 </form>
             </div>
             <div class="mt-5 ms-5 mb-5">
@@ -104,6 +107,6 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 </body>
 </html>
