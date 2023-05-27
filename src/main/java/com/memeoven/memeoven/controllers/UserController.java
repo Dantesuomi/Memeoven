@@ -89,10 +89,5 @@ public class UserController {
         return user != null;
     }
 
-    @GetMapping("/index")
-    public String displayIndexPage(){
-
-        return "index";
-    }
 
 }
