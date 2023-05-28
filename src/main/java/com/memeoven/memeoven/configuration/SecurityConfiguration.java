@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/login").anonymous()
                                 .requestMatchers("/profile").authenticated()
                                 .requestMatchers("/upload").authenticated()
+                                .requestMatchers(HttpMethod.POST,"/update-avatar").authenticated()
                                 .requestMatchers("/error").permitAll()
                                 .requestMatchers("/meme-page/{memeId}").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/comment").authenticated()

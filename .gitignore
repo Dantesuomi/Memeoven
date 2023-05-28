@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 src/main/resources/static/memes/
+src/main/resources/static/avatars/
 
 ### STS ###
 .apt_generated

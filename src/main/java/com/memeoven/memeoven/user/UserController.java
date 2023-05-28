@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class UserController {
@@ -69,6 +70,18 @@ public class UserController {
         model.addAttribute("user", user);
 
         return "profile";
+    }
+
+    @PostMapping("/profile")
+    public String updateProfile(@AuthenticationPrincipal User user, @Valid ProfileDto profileDto){
+        userService.updateUser(user, profileDto);
+        return "redirect:profile";
+    }
+
+    @PostMapping("/update-avatar")
+    public String updateAvatar(@AuthenticationPrincipal User user, @Valid AvatarDto avatarDto){
+        userService.updateAvatar(user, avatarDto.getFile());
+        return "redirect:profile";
     }
 
     @GetMapping("/meme-page")

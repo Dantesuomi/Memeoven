@@ -16,14 +16,15 @@ public class MemeService {
         this.memeFileService = memeFileService;
     }
 
-    public void saveMeme(MemeDto memeDto, User user){
+    public Long saveMeme(MemeDto memeDto, User user){
         Meme meme = new Meme();
         String memeFileName = memeFileService.save(memeDto.getFile());
         meme.setTitle(memeDto.getTitle());
         meme.setCategory(memeDto.getCategory());
         meme.setNameOfMemePhoto(memeFileName);
         meme.setUser(user);
-        this.memeRepository.save(meme);
+        Meme savedMeme = this.memeRepository.save(meme);
+        return savedMeme.getId();
     }
 
     public Meme getMeme(Long id){

@@ -38,9 +38,9 @@ public class MemeController {
 
     @PostMapping("/upload")
     public String handleMemeUpload(@AuthenticationPrincipal User user,
-                                   @ModelAttribute("meme") @Valid MemeDto memeDto) {
-        memeService.saveMeme(memeDto, user);
-        return "redirect:/";
+                                   @Valid MemeDto memeDto) {
+        Long memeId = memeService.saveMeme(memeDto, user);
+        return "redirect:/meme-page/" + memeId;
     }
 
 
@@ -94,4 +94,6 @@ public class MemeController {
     public String showSearchPage() {
         return "search-result";
     }
+
+
 }
