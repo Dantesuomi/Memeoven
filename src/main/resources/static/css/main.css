@@ -67,6 +67,10 @@ div.a {
     position: sticky;
     top: 0;
 }
+.grey{
+    border-color: #464745;
+    background-color: #464745;
+}
 
 /*changes here*/
 

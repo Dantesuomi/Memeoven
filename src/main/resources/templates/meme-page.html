@@ -26,6 +26,25 @@
       margin-top: 10px;
       margin-right: 10px;
     }
+    .comment-container {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .avatar {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .username {
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    .comment {
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body style="background-color: #333333">
@@ -75,12 +94,14 @@
         <section class="text-white mb-3">
           <div th:if="${comment != null and comment.size() > 0}">
             <ul>
-              <li th:each="c : ${comment}">
-      <span class="new-line">
-        <i class="text-warning" th:text="'@' + ${c.getUser().getUsername()} + ' ' + ${c.getCreatedAt()}"></i><br>
-      </span>
-                <span th:text="${c.getComment()}"></span>
-              </li>
+              <div th:each="c : ${comment}" class="comment-container">
+                <img class="avatar" th:src="@{'/avatars/' + ${c.getUser().getNameOfProfilePhoto()}}">
+                <div>
+                  <span class="username text-warning" th:text="${'@' + c.getUser().getUsername()}"></span>
+                  <span class="date text-warning" th:text="${c.getCreatedAt()}"></span>
+                  <div class="comment" th:text="${c.getComment()}"></div>
+                </div>
+              </div>
             </ul>
           </div>
         </section>
