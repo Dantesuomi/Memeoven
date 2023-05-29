@@ -91,7 +91,11 @@ public class MemeController {
     }
 
     @GetMapping("/search")
-    public String showSearchPage() {
+    public String showSearchResult(@RequestParam("query") String query, @AuthenticationPrincipal User user,
+                                   Model model) {
+        List<Meme> memes = memeService.searchMemes(query);
+        model.addAttribute("memes", memes);
+
         return "search-result";
     }
 

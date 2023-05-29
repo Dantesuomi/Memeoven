@@ -4,6 +4,7 @@ import com.memeoven.memeoven.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,6 +35,13 @@ public class MemeService {
     public List<Meme> getAllMemes(){
        List<Meme> memes = memeRepository.getMemesByIdIsNotNull();
        return memes;
+    }
+
+    public List<Meme> searchMemes(String query) {
+        if (query.length() >= 3) {
+            return memeRepository.findByTitleContainingIgnoreCase(query);
+        }
+        return new ArrayList<>();
     }
 
 }
