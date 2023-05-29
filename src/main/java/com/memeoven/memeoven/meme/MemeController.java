@@ -99,5 +99,24 @@ public class MemeController {
         return "search-result";
     }
 
+    @GetMapping("/favourites")
+    public String showFavPage() {
+        return "fav-memes";
+    }
+
+    @GetMapping("/my-uploads")
+    public String showMyUploadsPage() {
+        return "my-uploads";
+    }
+
+    @GetMapping("/top-rate")
+    public String showTopOfTheTopPage() {
+        return "top-rate";
+    }
+
+    @GetMapping("/new")
+    public String showRecentUploadsPage() {
+        return "new";
+    }
 
 }
