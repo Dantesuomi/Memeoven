@@ -24,6 +24,8 @@ public class MemeController {
     private MemeService memeService;
     private CommentService commentService;
 
+    private MemeDto memeDto;
+
     @Autowired
     public MemeController(MemeService memeService, CommentService commentService) {
         this.memeService = memeService;
@@ -44,7 +46,6 @@ public class MemeController {
         return "redirect:/meme-page/" + memeId;
     }
 
-
     @GetMapping("/meme-page/{memeId}")
     public String showMeme(@PathVariable("memeId") Long id, Model model, @AuthenticationPrincipal User user) {
         Meme meme = memeService.getMeme(id);
@@ -52,6 +53,7 @@ public class MemeController {
             throw new ResourceNotFoundException();
         }
         Integer likeCount = memeService.getLikeCount(meme);
+        Integer commentCount = commentService.getCommentCountByMemeId(meme);
         String memeCategory = String.valueOf(meme.getCategory());
         model.addAttribute("memeName", meme.getTitle());
         model.addAttribute("memeCategory", memeCategory);
@@ -59,6 +61,7 @@ public class MemeController {
         model.addAttribute("image", meme.getNameOfMemePhoto());
         model.addAttribute("userId", meme.getUser().getId());
         model.addAttribute("likeCount", likeCount);
+        model.addAttribute("commentCount", commentCount);
         List<Comment> comments = commentService.getAllComments(id);
         model.addAttribute("comment", comments);
         return "meme-page";
@@ -73,6 +76,16 @@ public class MemeController {
             return "redirect:/error";
         }
     }
+
+
+    //TODO
+    @PostMapping("/fav-memes/{memeId}")
+    public Long savedToFavorite(@PathVariable("memeId") Long id, @AuthenticationPrincipal User user) {
+        Meme meme = memeService.getMeme(id);
+        meme.setSaved(true);
+        return memeService.saveMeme(memeDto, user);
+    }
+
 
     @ModelAttribute("loggedIn")
     public boolean loggedIn(@AuthenticationPrincipal User user) {
