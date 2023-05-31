@@ -17,12 +17,6 @@
     /* cursor: default;*/
   }
 
-  .custom-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 20px;
-  }
-
   .grey{
     border-color: #464745;
     background-color: #464745;
@@ -40,15 +34,17 @@
     <div class="col-lg-9 col-md-12 fonts text-white">
       <h1 class="mt-5 mb-5 me-5 text-white fonts text-end">search resultz</h1>
       <div th:each="meme: ${memes}">
-        <div style="margin-bottom: 50px;"> <!-- foreach meme to this div-->
-          <div class="mt-5 text-center">
-            <span class="fonts" th:text="${meme.title}"></span>
-          </div>
-          <div class="text-center">
-            <a>
-              <img th:src="'/memes/' + ${meme.nameOfMemePhoto}" class="custom-image">
-            </a>
-          </div>
+      <div style="margin-bottom: 50px;"> <!-- foreach meme to this div-->
+        <div class="mt-5 text-center">
+          <span class="fonts">
+            <a class="text-white" th:text="${meme.title}" th:href="@{'/meme-page/' + ${meme.getId()}}"></a>
+          </span>
+        </div>
+        <div class="text-center">
+          <a th:href="@{'/meme-page/' + ${meme.getId()}}">
+            <img th:src="'/memes/' + ${meme.nameOfMemePhoto}" class="custom-image">
+          </a>
+        </div>
           <div class="button-container text-center" style="margin-top: 20px;">
             <a href="/like" style="color: #333333;">
               <img th:src="@{/images/like.svg}">

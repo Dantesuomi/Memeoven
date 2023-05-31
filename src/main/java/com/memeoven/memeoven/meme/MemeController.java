@@ -94,7 +94,7 @@ public class MemeController {
     }
 
     @GetMapping("/search")
-    public String showSearchResult(@RequestParam("query") String query, @AuthenticationPrincipal User user,
+    public String showSearchResult(@RequestParam("query") String query,
                                    Model model) {
         List<Meme> memes = memeService.searchMemes(query);
         model.addAttribute("memes", memes);
@@ -132,7 +132,11 @@ public class MemeController {
     }
 
     @GetMapping("/new")
-    public String showRecentUploadsPage() {
+    public String showRecentUploadsPage(Model model) {
+
+        List<Meme> memes = memeService.searchNewMemes();
+        model.addAttribute("memes", memes);
+
         return "new";
     }
 
