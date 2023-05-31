@@ -72,6 +72,12 @@ div.a {
     background-color: #464745;
 }
 
+.custom-image {
+    max-width: 400px;
+    height: 300px;
+    margin-top: 20px;
+}
+
 /*changes here*/
 
 
