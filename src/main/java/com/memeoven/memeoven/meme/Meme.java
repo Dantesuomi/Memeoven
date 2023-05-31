@@ -26,7 +26,6 @@ public class Meme {
     @CreationTimestamp
     private Date createdAt;
 
-    private boolean saved;
 
 
 }

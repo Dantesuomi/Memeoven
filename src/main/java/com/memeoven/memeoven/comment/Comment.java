@@ -37,3 +37,5 @@ public class Comment {
     private Date createdAt;
 
 }
+
+//TODO ADD LINKS FOR COMMENT AND LIKE COUNT TO ALL HTML PAGES

@@ -18,11 +18,14 @@ public class MemeService {
     private MemeRepository memeRepository;
     private MemeLikeRepository memeLikeRepository;
     private MemeFileService memeFileService;
+
+    private MemeFavouriteRepository memeFavouriteRepository;
     @Autowired
-    public MemeService(MemeRepository memeRepository, MemeFileService memeFileService, MemeLikeRepository memeLikeRepository){
+    public MemeService(MemeRepository memeRepository, MemeFileService memeFileService, MemeLikeRepository memeLikeRepository, MemeFavouriteRepository memeFavouriteRepository){
         this.memeRepository = memeRepository;
         this.memeFileService = memeFileService;
         this.memeLikeRepository = memeLikeRepository;
+        this.memeFavouriteRepository = memeFavouriteRepository;
     }
 
 
@@ -73,10 +76,31 @@ public class MemeService {
         }
     }
 
+    public void saveToFavourite(Long memeId, User user){
+        Meme meme = memeRepository.getMemeById(memeId);
+        Favourite savedFavourite = memeFavouriteRepository.findFavouriteByUserAndMeme(user, meme);
+        if (savedFavourite == null){
+            Favourite favourite = new Favourite();
+            favourite.setUser(user);
+            favourite.setMeme(meme);
+            memeFavouriteRepository.save(favourite);
+        }
+    }
+
     public boolean isMemeLikedByUser(Long memeId, User user){
         Meme meme = memeRepository.getMemeById(memeId);
         MemeLike savedMemeLike = memeLikeRepository.findMemeLikeByUserAndMeme(user, meme);
         if (savedMemeLike == null){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public boolean isUserFavouriteMeme(Long memeId, User user){
+        Meme meme = memeRepository.getMemeById(memeId);
+        Favourite savedFavourite = memeFavouriteRepository.findFavouriteByUserAndMeme(user, meme);
+        if (savedFavourite == null){
             return false;
         }else {
             return true;
