@@ -1,6 +1,12 @@
 function likeMeme(memeId) {
     fetch(`/like/${memeId}/userLiked`)
-        .then(response => response.text())
+        .then(response => {
+            if(response.redirected){
+                alert("You have to be logged in to like memes!")
+                return;
+            }
+            return response.text()
+        })
         .then(hasUserLiked => {
                 if(hasUserLiked === 'false'){
                     increaseMemeLikeCount(memeId);
@@ -22,7 +28,13 @@ function increaseMemeLikeCount(memeId) {
 
 function saveToFavourite(memeId) {
     fetch(`/meme/${memeId}/isFavouriteMeme`)
-        .then(response => response.text())
+        .then(response => {
+            if(response.redirected){
+                alert("You have to be logged in to favourite memes!")
+                return;
+            }
+            return response.text()
+        })
         .then(hasUserFavourite => {
                 if(hasUserFavourite === 'false'){
                     changeFavouriteImage(memeId);
