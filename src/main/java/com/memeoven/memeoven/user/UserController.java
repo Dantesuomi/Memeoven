@@ -1,8 +1,5 @@
-package com.memeoven.memeoven.controllers;
+package com.memeoven.memeoven.user;
 
-import com.memeoven.memeoven.entity.User;
-import com.memeoven.memeoven.entity.UserDto;
-import com.memeoven.memeoven.entity.RegistrationStatus;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.memeoven.memeoven.services.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class UserController {
@@ -29,11 +26,14 @@ public class UserController {
             @RequestParam(name = "error", required = false) String error,
             @RequestParam(name = "status", required = false) String status,
             Model model
-   ){
+
+    ){
         model.addAttribute("error", error);
         model.addAttribute("status", status);
         return "login";
     }
+
+
 
     @GetMapping("/register")
     public String displayRegisterPage(
@@ -66,8 +66,22 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String displayProfilePage(){
+    public String displayProfilePage(@AuthenticationPrincipal User user, Model model){
+        model.addAttribute("user", user);
+
         return "profile";
+    }
+
+    @PostMapping("/profile")
+    public String updateProfile(@AuthenticationPrincipal User user, @Valid ProfileDto profileDto){
+        userService.updateUser(user, profileDto);
+        return "redirect:profile";
+    }
+
+    @PostMapping("/update-avatar")
+    public String updateAvatar(@AuthenticationPrincipal User user, @Valid AvatarDto avatarDto){
+        userService.updateAvatar(user, avatarDto.getFile());
+        return "redirect:profile";
     }
 
     @GetMapping("/meme-page")
@@ -75,5 +89,14 @@ public class UserController {
         return "meme-page";
     }
 
+    @ModelAttribute("loggedIn")
+    public boolean loggedIn(@AuthenticationPrincipal User user) {
+        return user != null;
+    }
+
+    @ModelAttribute("genders")
+    public Gender[] getGender() {
+        return Gender.values();
+    }
 
 }

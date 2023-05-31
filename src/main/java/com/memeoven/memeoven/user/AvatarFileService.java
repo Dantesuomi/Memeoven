@@ -1,4 +1,4 @@
-package com.memeoven.memeoven.meme;
+package com.memeoven.memeoven.user;
 
 import com.memeoven.memeoven.storage.StorageService;
 import org.apache.commons.io.FilenameUtils;
@@ -12,8 +12,8 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
-public class MemeFileService implements StorageService {
-    private final Path root = Paths.get("src/main/resources/static/memes");
+public class AvatarFileService implements StorageService {
+    private final Path root = Paths.get("src/main/resources/static/avatars");
 
     @Override
     public void init() {
@@ -46,3 +46,4 @@ public class MemeFileService implements StorageService {
 
 
 }
+

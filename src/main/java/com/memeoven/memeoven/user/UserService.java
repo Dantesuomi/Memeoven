@@ -1,37 +1,54 @@
-package com.memeoven.memeoven.services;
+package com.memeoven.memeoven.user;
 
-import com.memeoven.memeoven.entity.Gender;
-import com.memeoven.memeoven.entity.User;
-import com.memeoven.memeoven.entity.UserDto;
-import com.memeoven.memeoven.repository.UserRepository;
+import com.memeoven.memeoven.meme.Meme;
+import com.memeoven.memeoven.meme.MemeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.sql.Date;
 import java.util.regex.Pattern;
 
 @Service
 public class UserService {
-    public static final String DEFAULT_AVATAR = "default.jpg";
+    public static final String DEFAULT_AVATAR = "default.png";
     public static final String ROLE_USER = "ROLE_USER";
 
     private UserRepository userRepository;
 
+    private AvatarFileService avatarFileService;
+
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, AvatarFileService avatarFileService){
         this.userRepository = userRepository;
+        this.avatarFileService = avatarFileService;
     }
+
     public void createUser(UserDto userDto){
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setNameOfProfilePhoto(DEFAULT_AVATAR);
         user.setGender(Gender.NOT_SPECIFIED);
-        user.setDateOfBirth(new Date(0));
+        //user.setDateOfBirth(new Date(0));
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         user.setRole(ROLE_USER);
         user.setPassword(encodedPassword);
+        this.userRepository.save(user);
+    }
+
+    public void updateUser(User user, ProfileDto profileDto){
+        user.setGender(profileDto.getGender());
+        user.setDateOfBirth(profileDto.getDate());
+        user.setAbout(profileDto.getDescription());
+        userRepository.save(user);
+    }
+
+    public void updateAvatar(User user, MultipartFile file){
+        String avatarFileName = avatarFileService.save(file);
+        user.setNameOfProfilePhoto(avatarFileName);
         this.userRepository.save(user);
     }
 
