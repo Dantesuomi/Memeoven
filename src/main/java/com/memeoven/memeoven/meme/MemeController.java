@@ -5,6 +5,7 @@ import com.memeoven.memeoven.comment.CommentService;
 import com.memeoven.memeoven.exceptions.ResourceNotFoundException;
 import com.memeoven.memeoven.user.User;
 import com.memeoven.memeoven.comment.CommentRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -50,12 +51,14 @@ public class MemeController {
         if(meme == null){
             throw new ResourceNotFoundException();
         }
+        Integer likeCount = memeService.getLikeCount(meme);
         String memeCategory = String.valueOf(meme.getCategory());
         model.addAttribute("memeName", meme.getTitle());
         model.addAttribute("memeCategory", memeCategory);
         model.addAttribute("user", meme.getUser().getUsername());
         model.addAttribute("image", meme.getNameOfMemePhoto());
         model.addAttribute("userId", meme.getUser().getId());
+        model.addAttribute("likeCount", likeCount);
         List<Comment> comments = commentService.getAllComments(id);
         model.addAttribute("comment", comments);
         return "meme-page";
@@ -97,6 +100,20 @@ public class MemeController {
         model.addAttribute("memes", memes);
 
         return "search-result";
+    }
+
+    @PostMapping("/like/{memeId}")
+    public String saveMemeLike(@AuthenticationPrincipal User user, @PathVariable("memeId") Long memeId, HttpServletRequest request){
+        String referrer = request.getHeader("referer");
+        memeService.saveMemeLike(memeId, user);
+        return "redirect:" + referrer;
+    }
+
+    @GetMapping("/like/{memeId}/userLiked")
+    @ResponseBody
+    public boolean hasUserLiked(@AuthenticationPrincipal User user, @PathVariable("memeId") Long memeId){
+        boolean hasUserLiked = memeService.isMemeLikedByUser(memeId, user);
+        return hasUserLiked;
     }
 
     @GetMapping("/favourites")

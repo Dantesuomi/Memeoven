@@ -12,12 +12,15 @@ import java.util.List;
 @Service
 public class MemeService {
     private MemeRepository memeRepository;
+    private MemeLikeRepository memeLikeRepository;
     private MemeFileService memeFileService;
     @Autowired
-    public MemeService(MemeRepository memeRepository, MemeFileService memeFileService){
+    public MemeService(MemeRepository memeRepository, MemeFileService memeFileService, MemeLikeRepository memeLikeRepository){
         this.memeRepository = memeRepository;
         this.memeFileService = memeFileService;
+        this.memeLikeRepository = memeLikeRepository;
     }
+
 
     public Long saveMeme(MemeDto memeDto, User user){
         Meme meme = new Meme();
@@ -55,4 +58,29 @@ public class MemeService {
 
     }
 
+    public void saveMemeLike(Long memeId, User user){
+        Meme meme = memeRepository.getMemeById(memeId);
+        MemeLike savedMemeLike = memeLikeRepository.findMemeLikeByUserAndMeme(user, meme);
+        if (savedMemeLike == null){
+            MemeLike memeLike = new MemeLike();
+            memeLike.setUser(user);
+            memeLike.setMeme(meme);
+            memeLikeRepository.save(memeLike);
+        }
+    }
+
+    public boolean isMemeLikedByUser(Long memeId, User user){
+        Meme meme = memeRepository.getMemeById(memeId);
+        MemeLike savedMemeLike = memeLikeRepository.findMemeLikeByUserAndMeme(user, meme);
+        if (savedMemeLike == null){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public Integer getLikeCount(Meme meme){
+        Integer likeCount = memeLikeRepository.countMemeLikesByMeme(meme);
+        return likeCount;
+    }
 }

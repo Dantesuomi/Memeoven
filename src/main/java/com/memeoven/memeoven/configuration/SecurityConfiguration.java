@@ -41,7 +41,9 @@ public class SecurityConfiguration {
                                 .requestMatchers("/favourites").authenticated()
                                 .requestMatchers("/my-uploads").authenticated()
                                 .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/comment").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/css/**", "/images/**","/memes/**", "/avatars/**", "/favicon.ico").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/like/{memeId}").authenticated()
+                                .requestMatchers(HttpMethod.GET,"/like/{memeId}/userLiked").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/css/**", "/images/**","/memes/**", "/avatars/**", "/favicon.ico", "/script/**").permitAll()
 
                                 //.anyRequest().permitAll()
 

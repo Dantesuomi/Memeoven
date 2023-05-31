@@ -4,6 +4,7 @@ package com.memeoven.memeoven.comment;
 import com.memeoven.memeoven.meme.Meme;
 import com.memeoven.memeoven.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,8 @@ public class Comment {
     @NotNull
     private Meme meme;
     @Column(columnDefinition="TEXT")
+    @NotEmpty
+    @NotNull
     private String comment;
     @CreationTimestamp
     private Date createdAt;
