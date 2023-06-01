@@ -79,5 +79,9 @@ div.a {
     margin-top: 20px;
 }
 
-
-
+.link-style {
+    color: white;
+    margin-left: 40px;
+    text-decoration: none;
+    /* cursor: default;*/
+}

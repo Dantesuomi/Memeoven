@@ -118,11 +118,12 @@ public class MemeController {
     }
 
     @GetMapping("/search")
-    public String showSearchResult(@RequestParam("query") String query,
-                                   Model model) {
+    public String showSearchResult(@RequestParam("query") String query, @AuthenticationPrincipal User user, Model model) {
         List<Meme> memes = memeService.searchMemes(query);
         model.addAttribute("memes", memes);
-
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "search-result";
     }
 
@@ -166,12 +167,12 @@ public class MemeController {
     }
 
     @GetMapping("/new")
-    public String showRecentUploadsPage(Model model) {
-
+    public String showRecentUploadsPage(@AuthenticationPrincipal User user, Model model) {
         List<Meme> memes = memeService.searchNewMemes();
         model.addAttribute("memes", memes);
-
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "new";
     }
-
 }
