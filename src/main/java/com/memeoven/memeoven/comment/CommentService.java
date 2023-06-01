@@ -32,4 +32,8 @@ public class CommentService {
     }
 
 
+    public Integer getCommentCountByMemeId(Meme meme) {
+        Integer commentCount = commentRepository.countCommentsByMeme(meme);
+        return commentCount;
+    }
 }

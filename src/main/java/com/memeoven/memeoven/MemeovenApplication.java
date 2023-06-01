@@ -1,7 +1,6 @@
 package com.memeoven.memeoven;
 
 import com.memeoven.memeoven.meme.MemeFileService;
-import com.memeoven.memeoven.storage.StorageService;
 import jakarta.annotation.Resource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
