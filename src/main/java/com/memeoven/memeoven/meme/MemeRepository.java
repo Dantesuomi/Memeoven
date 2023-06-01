@@ -1,5 +1,6 @@
 package com.memeoven.memeoven.meme;
 
+import com.memeoven.memeoven.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,5 +20,9 @@ public interface MemeRepository extends JpaRepository<Meme, Long> {
 
     @Query("SELECT m FROM Meme m WHERE m.createdAt >= :twoDaysAgo ORDER BY m.id DESC")
     List<Meme> findNewestMemesWithinLastTwoDays(Date twoDaysAgo);
+
+    List<Meme> findMemesByUser(User user);
+
+
 
 }

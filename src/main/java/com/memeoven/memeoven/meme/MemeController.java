@@ -140,13 +140,23 @@ public class MemeController {
         return hasUserLiked;
     }
 
-    @GetMapping("/favourites")
-    public String showFavPage() {
+    @GetMapping("/profile/favourites")
+    public String showFavPage(@AuthenticationPrincipal User user, Model model) {
+        List<Meme> memes = memeService.getFavouriteMemes(user);
+        model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "fav-memes";
     }
 
-    @GetMapping("/my-uploads")
-    public String showMyUploadsPage() {
+    @GetMapping("/profile/my-uploads")
+    public String showMyUploadsPage(@AuthenticationPrincipal User user, Model model) {
+        List<Meme> memes = memeService.getUploadedMemes(user);
+        model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "my-uploads";
     }
 

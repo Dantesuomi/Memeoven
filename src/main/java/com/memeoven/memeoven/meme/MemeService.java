@@ -107,8 +107,22 @@ public class MemeService {
         }
     }
 
+    public List<Meme> getFavouriteMemes(User user){
+        List<Favourite> favouriteMemes = memeFavouriteRepository.findFavouritesByUser(user);
+        List<Meme> memes = new ArrayList<>();
+        for (Favourite favourite : favouriteMemes) {
+            memes.add(favourite.getMeme());
+        }
+        return memes;
+    }
+
     public Integer getLikeCount(Meme meme){
         Integer likeCount = memeLikeRepository.countMemeLikesByMeme(meme);
         return likeCount;
+    }
+
+    public List<Meme> getUploadedMemes(User user){
+        List<Meme> uploadedMemes = memeRepository.findMemesByUser(user);
+        return uploadedMemes;
     }
 }

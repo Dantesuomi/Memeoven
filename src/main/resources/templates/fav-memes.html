@@ -8,6 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Potta One' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/script/meme.js}"></script>
 </head>
 <style>
     .link-style {
@@ -34,29 +35,30 @@
         <div class="col-lg-9 col-md-12 fonts text-white">
             <h1 class="mt-5 mb-5 me-5 text-white fonts text-end">Fav memes</h1>
             <div th:each="meme: ${memes}">
-            <div style="margin-bottom: 50px;"> <!-- foreach meme to this div-->
-                <div class="mt-5 text-center">
+                <div style="margin-bottom: 50px;"> <!-- foreach meme to this div-->
+                    <div class="mt-5 text-center">
           <span class="fonts">
             <a class="text-white" th:text="${meme.title}" th:href="@{'/meme-page/' + ${meme.getId()}}"></a>
           </span>
-                </div>
-                <div class="text-center">
-                    <a th:href="@{'/meme-page/' + ${meme.getId()}}">
-                        <img th:src="'/memes/' + ${meme.nameOfMemePhoto}" class="custom-image">
-                    </a>
-                </div>
-                    <div class="button-container text-center" style="margin-top: 20px;">
-                        <a href="/like" style="color: #333333;">
-                            <img th:src="@{/images/like.svg}">
+                    </div>
+                    <div class="text-center">
+                        <a th:href="@{'/meme-page/' + ${meme.getId()}}">
+                            <img th:src="'/memes/' + ${meme.nameOfMemePhoto}" class="custom-image">
                         </a>
-                        <span id="likeCount" style="color: #e7a90b;">0</span>
-                        <a href="/comments.svg" style="color: #333333;">
-                            <img th:src="@{/images/comments.svg}">
-                        </a>
-                        <span id="commentCount" style="color: #e7a90b;">0</span>
-                        <a href="/save.svg" style="color: #333333;">
-                            <img th:src="@{/images/save.svg}">
-                        </a>
+                    </div>
+                    <div class="button-container text-center text-warning" style="margin-top: 20px;">
+                        <button type="button" class="btn" th:onclick="'likeMeme(\'' + ${meme.getId()} + '\')'">
+                            <img th:src="@{/images/like.svg}" alt="like" style="width: 18px;" class="square">
+                        </button>
+                        <span th:id="'meme' + ${meme.getId()}" th:text="${memeService.getLikeCount(meme)}"></span>
+                        <button type="button" class="btn" th:onclick="'window.location.href=\'/meme-page/' + ${meme.getId()} + '#comment\''">
+                            <img th:src="@{/images/comments.svg}" alt="comment" style="width: 18px;" class="square">
+                        </button>
+                        <span id="commentCount" th:text="${commentService.getCommentCountByMemeId(meme)}"></span>
+                        <button type="button" class="btn" th:onclick="'saveToFavourite(\'' + ${meme.getId()} + '\')'"> <!--saveClicked()-->
+                            <img th:if="${memeService.isUserFavouriteMeme(meme.getId(), loggedInUser)}" th:src="@{/images/save_clicked.svg}" th:id="'favouriteMeme' + ${meme.getId()}" alt="save" style="width: 16px;" class="square">
+                            <img th:unless="${memeService.isUserFavouriteMeme(meme.getId(), loggedInUser)}" th:src="@{/images/save.svg}" th:id="'favouriteMeme' + ${meme.getId()}" alt="save" style="width: 16px;" class="square">
+                        </button>
                         <span>
              <a href="https://example.com/user-profile" class="link-style" th:text="'@' + ${meme.getUser().getUsername()}"></a>
             </span>
