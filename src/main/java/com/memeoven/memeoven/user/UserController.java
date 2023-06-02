@@ -1,24 +1,31 @@
 package com.memeoven.memeoven.user;
 
+import com.memeoven.memeoven.comment.CommentService;
+import com.memeoven.memeoven.meme.Meme;
+import com.memeoven.memeoven.meme.MemeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class UserController {
 
     private UserService userService;
+    private MemeService memeService;
+    private CommentService commentService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, MemeService memeService, CommentService commentService){
         this.userService = userService;
+        this.memeService = memeService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/login")
@@ -97,6 +104,23 @@ public class UserController {
     @ModelAttribute("genders")
     public Gender[] getGender() {
         return Gender.values();
+    }
+
+    @GetMapping("/member/{userId}")
+    public String showMemberPage(@PathVariable("userId") Long id, Model model, @AuthenticationPrincipal User user) {
+        User foundUser = userService.getUser(id);
+        List<Meme> userMemes = memeService.getMemesUploadedByUser(id);
+
+        if (id == user.getId()){
+            return "redirect:/profile";
+        }
+        model.addAttribute("user", foundUser);
+        model.addAttribute("memes", userMemes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
+
+        return "member";
     }
 
 }

@@ -118,10 +118,13 @@ public class MemeController {
     }
 
     @GetMapping("/search")
-    public String showSearchResult(@RequestParam("query") String query,
+    public String showSearchResult(@RequestParam("query") String query,@AuthenticationPrincipal User user,
                                    Model model) {
         List<Meme> memes = memeService.searchMemes(query);
         model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
 
         return "search-result";
     }
@@ -151,17 +154,26 @@ public class MemeController {
     }
 
     @GetMapping("/top-rate")
-    public String showTopOfTheTopPage() {
+    public String showTopOfTheTopPage(Model model, @AuthenticationPrincipal User user) {
+        List<Meme> topLikedMemes = memeService.getTopLikedMemes();
+        model.addAttribute("memes", topLikedMemes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "top-rate";
     }
 
     @GetMapping("/new")
-    public String showRecentUploadsPage(Model model) {
+    public String showRecentUploadsPage(Model model, @AuthenticationPrincipal User user) {
 
         List<Meme> memes = memeService.searchNewMemes();
         model.addAttribute("memes", memes);
-
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "new";
     }
+
+
 
 }
