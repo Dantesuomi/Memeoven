@@ -23,6 +23,15 @@
       background-color: #464745;
     }
 
+    .container {
+      display: flex;
+      justify-content: space-evenly;
+      min-width: 600px; /* Set your desired fixed width here */
+      max-width: 100%;
+      word-wrap: break-word; /* Add this property to enable text wrapping */
+      padding: 10px;
+    }
+
   </style>
 </head>
 <body style="background-color: #333333">
@@ -39,14 +48,12 @@
           <img th:src="'/avatars/' + ${user.getNameOfProfilePhoto()}" alt="profile" style="width: 150px;" class="square">
         </a>
         <div class="info">
-          <span class="text-white fonts bold ms-2" th:text="'@' + ${user.getUsername()}"></span>
+          <span class="h3 text-white fonts bold ms-2" th:text="'@' + ${user.getUsername()}"></span>
         </div>
       </div>
-      <div class="text-center mt-5">
-          <span class=" h1 text-white fonts text-center">About </span>
-          <span class="h1 text-warning fonts">meeeow</span>
-          <span class="text-white" th:text="${user.getAbout()}"></span>
-        </div>
+      <div class="mt-5 mb-5 text-center form-middle row-5 text-center mt-5 border border-warning container">
+        <span class="text-white fonts" th:text="${user.getAbout()}"></span>
+      </div>
       <div class="mt-5 ms-5 mb-5">
         <h4 class="text-white fonts bold text-center mt-5">My ugly collection</h4>
         <div th:each="meme: ${memes}">
