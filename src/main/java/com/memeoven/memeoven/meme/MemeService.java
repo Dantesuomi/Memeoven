@@ -111,4 +111,8 @@ public class MemeService {
         Integer likeCount = memeLikeRepository.countMemeLikesByMeme(meme);
         return likeCount;
     }
+
+    public List<Meme> getMemesByCategory(Category category) {
+        return memeRepository.findByCategory(category);
+    }
 }
