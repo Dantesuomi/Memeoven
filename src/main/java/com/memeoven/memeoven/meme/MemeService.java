@@ -125,7 +125,7 @@ public class MemeService {
 
     public List<Meme> getMemesByCategory(Category category) {
         return memeRepository.findByCategory(category);
-    }
+        }
 
         public List<Meme> getUploadedMemes (User user){
             List<Meme> uploadedMemes = memeRepository.findMemesByUser(user);
