@@ -45,6 +45,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST,"/meme/{memeId}/favourite").authenticated()
                                 .requestMatchers(HttpMethod.GET,"/meme/{memeId}/isFavouriteMeme").authenticated()
                                 .requestMatchers(HttpMethod.GET,"/like/{memeId}/userLiked").authenticated()
+                                .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/delete").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/css/**", "/images/**","/memes/**", "/avatars/**", "/favicon.ico", "/script/**").permitAll()
 
                                 //.anyRequest().permitAll()

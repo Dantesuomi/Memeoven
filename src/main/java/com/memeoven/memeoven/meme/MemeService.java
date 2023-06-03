@@ -1,12 +1,10 @@
 package com.memeoven.memeoven.meme;
 
+import com.memeoven.memeoven.comment.CommentRepository;
+import com.memeoven.memeoven.exceptions.ForbiddenException;
 import com.memeoven.memeoven.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,15 +15,18 @@ import java.util.List;
 public class MemeService {
     private MemeRepository memeRepository;
     private MemeLikeRepository memeLikeRepository;
+
+    private CommentRepository commentRepository;
     private MemeFileService memeFileService;
 
     private MemeFavouriteRepository memeFavouriteRepository;
     @Autowired
-    public MemeService(MemeRepository memeRepository, MemeFileService memeFileService, MemeLikeRepository memeLikeRepository, MemeFavouriteRepository memeFavouriteRepository){
+    public MemeService(MemeRepository memeRepository, MemeFileService memeFileService, MemeLikeRepository memeLikeRepository, MemeFavouriteRepository memeFavouriteRepository, CommentRepository commentRepository){
         this.memeRepository = memeRepository;
         this.memeFileService = memeFileService;
         this.memeLikeRepository = memeLikeRepository;
         this.memeFavouriteRepository = memeFavouriteRepository;
+        this.commentRepository = commentRepository;
     }
 
 
@@ -125,4 +126,21 @@ public class MemeService {
         List<Meme> uploadedMemes = memeRepository.findMemesByUser(user);
         return uploadedMemes;
     }
+
+    public void deleteMeme(Long memeId, User user){
+        Meme memeToDelete = memeRepository.getMemeById(memeId);
+        long memeOwnerId = memeToDelete.getUser().getId();
+        long authorizedUserId = user.getId();
+        if (memeOwnerId == authorizedUserId){
+            memeLikeRepository.deleteMemeLikesByMeme(memeToDelete);
+            memeFavouriteRepository.deleteFavouritesByMeme(memeToDelete);
+            commentRepository.deleteCommentsByMeme(memeToDelete);
+            memeRepository.delete(memeToDelete);
+        }else {
+            throw new ForbiddenException();
+        }
+
+    }
+
+
 }

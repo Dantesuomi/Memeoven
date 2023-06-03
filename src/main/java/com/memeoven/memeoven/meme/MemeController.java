@@ -175,4 +175,12 @@ public class MemeController {
         model.addAttribute("loggedInUser", user);
         return "new";
     }
+
+    @PostMapping ("/meme-page/{memeId}/delete")
+    public String deleteMeme(@PathVariable("memeId") Long memeId, @AuthenticationPrincipal User user) {
+        memeService.deleteMeme(memeId, user);
+        return "redirect:/";
+    }
+
+
 }
