@@ -24,7 +24,7 @@
                 <img th:unless="${memeService.isUserFavouriteMeme(meme.getId(), loggedInUser)}" th:src="@{/images/save.svg}" th:id="'favouriteMeme' + ${meme.getId()}" alt="save" style="width: 16px;" class="square">
             </button>
             <span>
-             <a href="https://example.com/user-profile" class="link-style" th:text="'@' + ${meme.getUser().getUsername()}"></a>
+             <a th:href="'/member/' + ${meme.getUser().getId()}" class="link-style" th:text="'@' + ${meme.getUser().getUsername()}"></a>
             </span>
         </div>
         <div class="text-center mt-3">
