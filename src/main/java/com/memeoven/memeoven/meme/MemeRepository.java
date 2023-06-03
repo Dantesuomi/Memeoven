@@ -1,5 +1,7 @@
 package com.memeoven.memeoven.meme;
 
+import com.memeoven.memeoven.user.User;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,5 +27,6 @@ public interface MemeRepository extends JpaRepository<Meme, Long> {
     List<Meme> getMemesById(@Param("ids") List<Long> topMemesId);
 
     List<Meme> getMemesByUserId(Long id);
+    List<Meme> findMemesByUser(User user);
 
 }

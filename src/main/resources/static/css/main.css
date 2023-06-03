@@ -73,10 +73,15 @@ div.a {
 }
 
 .custom-image {
-    max-width: 400px;
-    height: 300px;
+    max-width: 500px;
+    max-height: 500px;
+    min-width: 300px;
     margin-top: 20px;
 }
 
-
-
+.link-style {
+    color: white;
+    margin-left: 40px;
+    text-decoration: none;
+    /* cursor: default;*/
+}

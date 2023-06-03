@@ -118,14 +118,12 @@ public class MemeController {
     }
 
     @GetMapping("/search")
-    public String showSearchResult(@RequestParam("query") String query,@AuthenticationPrincipal User user,
-                                   Model model) {
+    public String showSearchResult(@RequestParam("query") String query, @AuthenticationPrincipal User user, Model model) {
         List<Meme> memes = memeService.searchMemes(query);
         model.addAttribute("memes", memes);
         model.addAttribute("memeService", memeService);
         model.addAttribute("commentService", commentService);
         model.addAttribute("loggedInUser", user);
-
         return "search-result";
     }
 
@@ -143,13 +141,23 @@ public class MemeController {
         return hasUserLiked;
     }
 
-    @GetMapping("/favourites")
-    public String showFavPage() {
+    @GetMapping("/profile/favourites")
+    public String showFavPage(@AuthenticationPrincipal User user, Model model) {
+        List<Meme> memes = memeService.getFavouriteMemes(user);
+        model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "fav-memes";
     }
 
-    @GetMapping("/my-uploads")
-    public String showMyUploadsPage() {
+    @GetMapping("/profile/my-uploads")
+    public String showMyUploadsPage(@AuthenticationPrincipal User user, Model model) {
+        List<Meme> memes = memeService.getUploadedMemes(user);
+        model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "my-uploads";
     }
 
@@ -164,8 +172,7 @@ public class MemeController {
     }
 
     @GetMapping("/new")
-    public String showRecentUploadsPage(Model model, @AuthenticationPrincipal User user) {
-
+    public String showRecentUploadsPage(@AuthenticationPrincipal User user, Model model) {
         List<Meme> memes = memeService.searchNewMemes();
         model.addAttribute("memes", memes);
         model.addAttribute("memeService", memeService);
@@ -174,6 +181,11 @@ public class MemeController {
         return "new";
     }
 
+    @PostMapping ("/meme-page/{memeId}/delete")
+    public String deleteMeme(@PathVariable("memeId") Long memeId, @AuthenticationPrincipal User user) {
+        memeService.deleteMeme(memeId, user);
+        return "redirect:/";
+    }
 
 
 }
