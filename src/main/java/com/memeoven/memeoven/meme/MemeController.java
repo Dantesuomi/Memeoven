@@ -119,21 +119,13 @@ public class MemeController {
     }
 
 
-
-
- /*   @GetMapping("/category")
-    public String showCategoryPage(Model model) {
-        List<Meme> memes = memeService.getAllMemes();  // Or any other logic to retrieve all memes
-        model.addAttribute("memes", memes);
-        return "category";
-    }*/
-
     @GetMapping("/search")
-    public String showSearchResult(@RequestParam("query") String query,
-                                   Model model) {
+    public String showSearchResult(@RequestParam("query") String query, @AuthenticationPrincipal User user, Model model) {
         List<Meme> memes = memeService.searchMemes(query);
         model.addAttribute("memes", memes);
-
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "search-result";
     }
 
@@ -151,13 +143,23 @@ public class MemeController {
         return hasUserLiked;
     }
 
-    @GetMapping("/favourites")
-    public String showFavPage() {
+    @GetMapping("/profile/favourites")
+    public String showFavPage(@AuthenticationPrincipal User user, Model model) {
+        List<Meme> memes = memeService.getFavouriteMemes(user);
+        model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "fav-memes";
     }
 
-    @GetMapping("/my-uploads")
-    public String showMyUploadsPage() {
+    @GetMapping("/profile/my-uploads")
+    public String showMyUploadsPage(@AuthenticationPrincipal User user, Model model) {
+        List<Meme> memes = memeService.getUploadedMemes(user);
+        model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "my-uploads";
     }
 
@@ -167,11 +169,12 @@ public class MemeController {
     }
 
     @GetMapping("/new")
-    public String showRecentUploadsPage(Model model) {
-
+    public String showRecentUploadsPage(@AuthenticationPrincipal User user, Model model) {
         List<Meme> memes = memeService.searchNewMemes();
         model.addAttribute("memes", memes);
-
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "new";
     }
 
@@ -188,4 +191,5 @@ public class MemeController {
 
         return "category";
     }
+
 }

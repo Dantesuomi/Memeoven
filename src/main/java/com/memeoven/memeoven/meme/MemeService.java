@@ -20,8 +20,9 @@ public class MemeService {
     private MemeFileService memeFileService;
 
     private MemeFavouriteRepository memeFavouriteRepository;
+
     @Autowired
-    public MemeService(MemeRepository memeRepository, MemeFileService memeFileService, MemeLikeRepository memeLikeRepository, MemeFavouriteRepository memeFavouriteRepository){
+    public MemeService(MemeRepository memeRepository, MemeFileService memeFileService, MemeLikeRepository memeLikeRepository, MemeFavouriteRepository memeFavouriteRepository) {
         this.memeRepository = memeRepository;
         this.memeFileService = memeFileService;
         this.memeLikeRepository = memeLikeRepository;
@@ -29,7 +30,7 @@ public class MemeService {
     }
 
 
-    public Long saveMeme(MemeDto memeDto, User user){
+    public Long saveMeme(MemeDto memeDto, User user) {
         Meme meme = new Meme();
         String memeFileName = memeFileService.save(memeDto.getFile());
         meme.setTitle(memeDto.getTitle());
@@ -40,13 +41,13 @@ public class MemeService {
         return savedMeme.getId();
     }
 
-    public Meme getMeme(Long id){
+    public Meme getMeme(Long id) {
         return memeRepository.getMemeById(id);
     }
 
-    public List<Meme> getAllMemes(){
-       List<Meme> memes = memeRepository.getMemesByIdIsNotNull();
-       return memes;
+    public List<Meme> getAllMemes() {
+        List<Meme> memes = memeRepository.getMemesByIdIsNotNull();
+        return memes;
     }
 
     public List<Meme> searchMemes(String query) {
@@ -56,7 +57,7 @@ public class MemeService {
         return new ArrayList<>();
     }
 
-    public List<Meme> searchNewMemes(){
+    public List<Meme> searchNewMemes() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, -2);
         Date twoDaysAgo = calendar.getTime();
@@ -65,10 +66,10 @@ public class MemeService {
 
     }
 
-    public void saveMemeLike(Long memeId, User user){
+    public void saveMemeLike(Long memeId, User user) {
         Meme meme = memeRepository.getMemeById(memeId);
         MemeLike savedMemeLike = memeLikeRepository.findMemeLikeByUserAndMeme(user, meme);
-        if (savedMemeLike == null){
+        if (savedMemeLike == null) {
             MemeLike memeLike = new MemeLike();
             memeLike.setUser(user);
             memeLike.setMeme(meme);
@@ -76,10 +77,10 @@ public class MemeService {
         }
     }
 
-    public void saveToFavourite(Long memeId, User user){
+    public void saveToFavourite(Long memeId, User user) {
         Meme meme = memeRepository.getMemeById(memeId);
         Favourite savedFavourite = memeFavouriteRepository.findFavouriteByUserAndMeme(user, meme);
-        if (savedFavourite == null){
+        if (savedFavourite == null) {
             Favourite favourite = new Favourite();
             favourite.setUser(user);
             favourite.setMeme(meme);
@@ -87,32 +88,49 @@ public class MemeService {
         }
     }
 
-    public boolean isMemeLikedByUser(Long memeId, User user){
+    public boolean isMemeLikedByUser(Long memeId, User user) {
         Meme meme = memeRepository.getMemeById(memeId);
         MemeLike savedMemeLike = memeLikeRepository.findMemeLikeByUserAndMeme(user, meme);
-        if (savedMemeLike == null){
+        if (savedMemeLike == null) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
 
-    public boolean isUserFavouriteMeme(Long memeId, User user){
+    public boolean isUserFavouriteMeme(Long memeId, User user) {
         Meme meme = memeRepository.getMemeById(memeId);
         Favourite savedFavourite = memeFavouriteRepository.findFavouriteByUserAndMeme(user, meme);
-        if (savedFavourite == null){
+        if (savedFavourite == null) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
 
-    public Integer getLikeCount(Meme meme){
+    public List<Meme> getFavouriteMemes(User user) {
+        List<Favourite> favouriteMemes = memeFavouriteRepository.findFavouritesByUser(user);
+        List<Meme> memes = new ArrayList<>();
+        for (Favourite favourite : favouriteMemes) {
+            memes.add(favourite.getMeme());
+        }
+        return memes;
+    }
+
+    public Integer getLikeCount(Meme meme) {
         Integer likeCount = memeLikeRepository.countMemeLikesByMeme(meme);
         return likeCount;
     }
 
+
     public List<Meme> getMemesByCategory(Category category) {
         return memeRepository.findByCategory(category);
     }
-}
+
+        public List<Meme> getUploadedMemes (User user){
+            List<Meme> uploadedMemes = memeRepository.findMemesByUser(user);
+            return uploadedMemes;
+
+        }
+    }
+
