@@ -79,4 +79,8 @@ public class UserService {
         return regex.matcher(email).matches();
     }
 
+    public User getUser(Long id){
+        return userRepository.getUserById(id);
+    }
+
 }

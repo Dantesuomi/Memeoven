@@ -129,11 +129,12 @@ public class MemeController {
     }*/
 
     @GetMapping("/search")
-    public String showSearchResult(@RequestParam("query") String query,
-                                   Model model) {
+    public String showSearchResult(@RequestParam("query") String query, @AuthenticationPrincipal User user, Model model) {
         List<Meme> memes = memeService.searchMemes(query);
         model.addAttribute("memes", memes);
-
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "search-result";
     }
 
@@ -151,30 +152,45 @@ public class MemeController {
         return hasUserLiked;
     }
 
-    @GetMapping("/favourites")
-    public String showFavPage() {
+    @GetMapping("/profile/favourites")
+    public String showFavPage(@AuthenticationPrincipal User user, Model model) {
+        List<Meme> memes = memeService.getFavouriteMemes(user);
+        model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "fav-memes";
     }
 
-    @GetMapping("/my-uploads")
-    public String showMyUploadsPage() {
+    @GetMapping("/profile/my-uploads")
+    public String showMyUploadsPage(@AuthenticationPrincipal User user, Model model) {
+        List<Meme> memes = memeService.getUploadedMemes(user);
+        model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "my-uploads";
     }
 
     @GetMapping("/top-rate")
-    public String showTopOfTheTopPage() {
+    public String showTopOfTheTopPage(Model model, @AuthenticationPrincipal User user) {
+        List<Meme> topLikedMemes = memeService.getTopLikedMemes();
+        model.addAttribute("memes", topLikedMemes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "top-rate";
     }
 
     @GetMapping("/new")
-    public String showRecentUploadsPage(Model model) {
-
+    public String showRecentUploadsPage(@AuthenticationPrincipal User user, Model model) {
         List<Meme> memes = memeService.searchNewMemes();
         model.addAttribute("memes", memes);
-
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "new";
     }
-
 
     @GetMapping("/category/{category}")
     public String showCategoryPage(@PathVariable("category") Category category, Model model, @AuthenticationPrincipal User user) {
@@ -188,4 +204,12 @@ public class MemeController {
 
         return "category";
     }
+
+    @PostMapping ("/meme-page/{memeId}/delete")
+    public String deleteMeme(@PathVariable("memeId") Long memeId, @AuthenticationPrincipal User user) {
+        memeService.deleteMeme(memeId, user);
+        return "redirect:/";
+    }
+
+
 }

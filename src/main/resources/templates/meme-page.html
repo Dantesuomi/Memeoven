@@ -77,15 +77,23 @@
             </button>
             <span class="ms-5 text-white fonts" th:text="'@'+${user}"></span>
           </div>
+          <!--TODO HERE-->
+          <form th:if="${userId==loggedInUser.getId()}" th:action="'/meme-page/' + ${memeId} + '/delete'" method="post">
+            <button class="mt-2 btn btn-danger fonts btn-sm" type="submit">Delete meme</button>
+          </form>
         </div>
         <div class="mt-5 mb-5">
           <button type="button" class="btn grey me-2 text-white text-lowercase" th:text="${memeCategory}"></button>
         </div>
         <form method="post" th:action="@{'/meme-page/' + ${memeId} + '/comment'}">
           <div class="text-start">
+            <div>
             <label class="text-white fonts mb-2" for="comment">Write something here (we don't care)</label>
+            </div>
+            <div>
             <textarea class="form-large bg-light border-warning" rows="5" id="comment" name="text" required></textarea>
-          <div class="text-end">
+            </div>
+              <div>
             <button type="reset" class="mt-2 btn btn-dark fonts btn-sm text-white">Cancel</button>
             <button type="submit" class="mt-2 btn btn-warning fonts btn-sm">Post</button>
           </div>
