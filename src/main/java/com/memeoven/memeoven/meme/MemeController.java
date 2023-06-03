@@ -114,8 +114,19 @@ public class MemeController {
 
     @GetMapping("/category")
     public String showCategoryPage() {
+
         return "category";
     }
+
+
+
+
+ /*   @GetMapping("/category")
+    public String showCategoryPage(Model model) {
+        List<Meme> memes = memeService.getAllMemes();  // Or any other logic to retrieve all memes
+        model.addAttribute("memes", memes);
+        return "category";
+    }*/
 
     @GetMapping("/search")
     public String showSearchResult(@RequestParam("query") String query, @AuthenticationPrincipal User user, Model model) {
@@ -179,6 +190,17 @@ public class MemeController {
         model.addAttribute("commentService", commentService);
         model.addAttribute("loggedInUser", user);
         return "new";
+    }
+
+    @GetMapping("/category/{category}")
+    public String showCategoryPage(@PathVariable("category") Category category, Model model, @AuthenticationPrincipal User user) {
+        List<Meme> memes = memeService.getMemesByCategory(category);
+        model.addAttribute("memes", memes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
+        model.addAttribute("category", category);
+        return "category";
     }
 
     @PostMapping ("/meme-page/{memeId}/delete")

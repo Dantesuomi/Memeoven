@@ -23,6 +23,7 @@ public interface MemeRepository extends JpaRepository<Meme, Long> {
     @Query("SELECT m FROM Meme m WHERE m.createdAt >= :twoDaysAgo ORDER BY m.id DESC")
     List<Meme> findNewestMemesWithinLastTwoDays(Date twoDaysAgo);
 
+    List<Meme> findByCategory(Category category);
     @Query("SELECT m FROM Meme m WHERE m.id IN :ids")
     List<Meme> getMemesById(@Param("ids") List<Long> topMemesId);
 

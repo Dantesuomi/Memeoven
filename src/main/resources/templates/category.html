@@ -18,7 +18,7 @@
   <div class="row">
     <div th:replace="~{fragments/left-pane :: left-pane}"></div>
     <div class="col-lg-9 col-md-12 fonts text-white">
-      <h1 class="mt-5 mb-5 me-5 text-white fonts text-end">Here will be category</h1>
+      <h1 class="mt-5 mb-5 me-5 text-white fonts text-end" th:text="'Here will be ' + ${#strings.toLowerCase(category)}"></h1>
       <div th:replace="~{fragments/render-memes :: render-memes}"></div>
     </div>
   </div>

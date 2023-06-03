@@ -122,6 +122,10 @@ public class MemeService {
         return likeCount;
     }
 
+    public List<Meme> getMemesByCategory(Category category) {
+        return memeRepository.findByCategory(category);
+    }
+    
     public List<Meme> getTopLikedMemes() {
         List<Long> topMemeIds = memeLikeRepository.getTopLikedMemeIds();
         List<Meme> topLikedMemes = memeRepository.getMemesById(topMemeIds);
