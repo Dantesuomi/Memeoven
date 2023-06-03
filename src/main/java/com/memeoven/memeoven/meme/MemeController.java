@@ -192,18 +192,4 @@ public class MemeController {
         return "category";
     }
 
-/*    @GetMapping("/category/{category}")
-    public String showCategoryPage(@PathVariable("category") Category category, Model model, @AuthenticationPrincipal User user) {
-        List<Meme> memes = memeService.getMemesByCategory(category);
-        for (Meme meme : memes) {
-            int commentCount = commentService.getCommentCountByMemeId(meme.getId());
-           *//* meme.setCommentCount(commentCount);*//*
-        }
-        model.addAttribute("memes", memes);
-        model.addAttribute("memeService", memeService);
-        model.addAttribute("selectedCategory", category);
-        model.addAttribute("loggedInUser", user);
-
-        return "category";
-    }*/
 }
