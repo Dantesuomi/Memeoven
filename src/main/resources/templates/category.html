@@ -10,10 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <script th:src="@{/script/meme.js}"></script>
 </head>
-<<<<<<< HEAD
 <style>
-
-
   .link-style {
     color: white;
     margin-left: 40px;
@@ -28,12 +25,9 @@
   .text-lowercase {
     text-transform: lowercase;
   }
-
-
 </style>
 
-=======
->>>>>>> b8521fb84e1409204192135b17a8efe111948cca
+
 <body style="background-color: #333333">
 <div class="sticky-top">
   <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -43,7 +37,7 @@
   <div class="row">
     <div th:replace="~{fragments/left-pane :: left-pane}"></div>
     <div class="col-lg-9 col-md-12 fonts text-white">
-<<<<<<< HEAD
+
       <h1 class="mt-5 mb-5 me-5 text-white fonts text-end"> Here are <span th:text="${selectedCategory}" class="text-lowercase"></span> memes</h1>
       <div th:each="meme: ${memes}">
 
@@ -68,7 +62,6 @@
               <img th:src="@{/images/like.svg}" alt="like" style="width: 18px;" class="square">
             </button>
             <span th:id="'meme' + ${meme.getId()}" th:text="${memeService.getLikeCount(meme)}"></span>
-
 
 
             <a th:href="@{'/meme-page/' + ${meme.getId()} + '#comment'}">
@@ -98,10 +91,11 @@
         </div>  <!--foreach meme to this div-->
 
       </div>
-=======
+
+     <!--Causes error 500, therefore commented out
       <h1 class="mt-5 mb-5 me-5 text-white fonts text-end" th:text="'Here will be ' + ${#strings.toLowerCase(category)}"></h1>
-      <div th:replace="~{fragments/render-memes :: render-memes}"></div>
->>>>>>> b8521fb84e1409204192135b17a8efe111948cca
+      <div th:replace="~{fragments/render-memes :: render-memes}"></div>-->
+
     </div>
   </div>
 
