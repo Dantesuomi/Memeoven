@@ -38,6 +38,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/error").permitAll()
                                 .requestMatchers("/category").permitAll()
                                 .requestMatchers("/meme-page/{memeId}").permitAll()
+                                .requestMatchers("/member/{userId}").authenticated()
                                 .requestMatchers("/profile/favourites").authenticated()
                                 .requestMatchers("/profile/my-uploads").authenticated()
                                 .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/comment").authenticated()

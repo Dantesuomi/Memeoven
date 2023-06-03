@@ -87,9 +87,13 @@
         </div>
         <form method="post" th:action="@{'/meme-page/' + ${memeId} + '/comment'}">
           <div class="text-start">
+            <div>
             <label class="text-white fonts mb-2" for="comment">Write something here (we don't care)</label>
+            </div>
+            <div>
             <textarea class="form-large bg-light border-warning" rows="5" id="comment" name="text" required></textarea>
-          <div class="text-end">
+            </div>
+              <div>
             <button type="reset" class="mt-2 btn btn-dark fonts btn-sm text-white">Cancel</button>
             <button type="submit" class="mt-2 btn btn-warning fonts btn-sm">Post</button>
           </div>

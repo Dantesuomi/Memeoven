@@ -162,7 +162,12 @@ public class MemeController {
     }
 
     @GetMapping("/top-rate")
-    public String showTopOfTheTopPage() {
+    public String showTopOfTheTopPage(Model model, @AuthenticationPrincipal User user) {
+        List<Meme> topLikedMemes = memeService.getTopLikedMemes();
+        model.addAttribute("memes", topLikedMemes);
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
         return "top-rate";
     }
 
