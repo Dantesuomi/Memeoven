@@ -196,12 +196,10 @@ public class MemeController {
     public String showCategoryPage(@PathVariable("category") Category category, Model model, @AuthenticationPrincipal User user) {
         List<Meme> memes = memeService.getMemesByCategory(category);
         model.addAttribute("memes", memes);
-
-
-            model.addAttribute("loggedInUser", user);
-            model.addAttribute("memeService", memeService);
-
-
+        model.addAttribute("memeService", memeService);
+        model.addAttribute("commentService", commentService);
+        model.addAttribute("loggedInUser", user);
+        model.addAttribute("category", category);
         return "category";
     }
 
