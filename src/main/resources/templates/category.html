@@ -10,6 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <script th:src="@{/script/meme.js}"></script>
 </head>
+<<<<<<< HEAD
 <style>
 
 
@@ -31,6 +32,8 @@
 
 </style>
 
+=======
+>>>>>>> b8521fb84e1409204192135b17a8efe111948cca
 <body style="background-color: #333333">
 <div class="sticky-top">
   <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -40,6 +43,7 @@
   <div class="row">
     <div th:replace="~{fragments/left-pane :: left-pane}"></div>
     <div class="col-lg-9 col-md-12 fonts text-white">
+<<<<<<< HEAD
       <h1 class="mt-5 mb-5 me-5 text-white fonts text-end"> Here are <span th:text="${selectedCategory}" class="text-lowercase"></span> memes</h1>
       <div th:each="meme: ${memes}">
 
@@ -94,6 +98,10 @@
         </div>  <!--foreach meme to this div-->
 
       </div>
+=======
+      <h1 class="mt-5 mb-5 me-5 text-white fonts text-end" th:text="'Here will be ' + ${#strings.toLowerCase(category)}"></h1>
+      <div th:replace="~{fragments/render-memes :: render-memes}"></div>
+>>>>>>> b8521fb84e1409204192135b17a8efe111948cca
     </div>
   </div>
 
