@@ -37,9 +37,9 @@
                 <span class="h1 text-white me-5 fonts">this is you</span>
             </div>
             <div class="profile">
-                <a class="ms-5 mb-5">
-                    <img th:src="'/avatars/' + ${user.getNameOfProfilePhoto()}" alt="profile" style="width: 60px;" class="square">
-                </a>
+                <div class="ms-5 mb-3">
+                    <img th:src="'/avatars/' + ${user.getNameOfProfilePhoto()}" alt="profile" style="width: 100px;" class="square">
+                </div>
                 <div class="info">
                     <span class="text-white fonts bold ms-2" th:text="'@' + ${user.getUsername()}"></span>
                     <span class="text-white ms-2" th:text="${user.getEmail()}"></span>
@@ -66,11 +66,11 @@
                     </div>
                     <div class="col">
                         <label class="form-label text-white fonts size">Enter date of birth</label>
-                        <input th:value="${#dates.format(user.getDateOfBirth(), 'yyyy-MM-dd')}" class="a form-control form-middle bg-light" name="date" type="date" placeholder="" required>
+                        <input th:value="${#dates.format(user.getDateOfBirth(), 'yyyy-MM-dd')}" th:max="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" class="a form-control form-middle bg-light" name="date" type="date" placeholder="" required>
                     </div>
                 </div>
                 <div class="mt-5 ms-5 mb-5">
-                    <label class="text-white fonts" for="comment">What's on your mind:</label>
+                    <label class="form-label text-white fonts size" >What's on your mind:</label>
                     <textarea th:text="${user.getAbout()}" class="form-control form-large bg-light border-warning" rows="5" id="comment"
                               name="description"></textarea>
                     <button type="submit" class="mt-4 btn btn-warning fonts btn-sm">Save changes</button>
@@ -80,21 +80,18 @@
                 <span class="fonts text-white">Created something?</span>
                 <span class="fonts text-warning">Share</span>
                 <span class="fonts text-white">(we all want to kek)</span>
-            </div>
-            <div class="mt-5 ms-5 mb-5">
                 <form>
-                    <label class="text-white fonts size" for="comment">Upload your meme!</label><br>
-                    <button type="link" class="mt-4 btn btn-warning fonts size btn-sm">Upload</button>
+                    <button type="link" class="mt-4 btn btn-warning fonts size btn">Upload Meme</button>
                 </form>
             </div>
             <div class="mt-5 ms-5 mb-5">
                 <h4 class="text-white fonts bold">My ugly collection</h4>
-                <ul class="nav">
+                <ul class="nav mt-4" >
                     <li class="nav-item">
-                        <a class="nav-link text-warning active" data-bs-toggle="tab" href="#favourites">Fav memes</a>
+                        <button type="button" class="btn btn-outline-warning btn" th:onclick="'window.location.href=\'/profile/favourites\''">Fav memes</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-warning" data-bs-toggle="tab" href="#uploaded">I made dis</a>
+                    <li class="nav-item ms-2">
+                        <button type="button" class="btn btn-outline-warning btn" th:onclick="'window.location.href=\'/profile/my-uploads\''">I made dis</button>
                     </li>
                 </ul>
             </div>
