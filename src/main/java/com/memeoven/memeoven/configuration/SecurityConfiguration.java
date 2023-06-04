@@ -36,7 +36,6 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET,"/search").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/update-avatar").authenticated()
                                 .requestMatchers("/error").permitAll()
-                                .requestMatchers("/category").permitAll()
                                 .requestMatchers("/meme-page/{memeId}").permitAll()
                                 .requestMatchers("/member/{userId}").authenticated()
                                 .requestMatchers("/profile/favourites").authenticated()

@@ -63,6 +63,8 @@ public class MemeController {
         List<Comment> comments = commentService.getAllComments(id);
         model.addAttribute("comment", comments);
         model.addAttribute("loggedInUser", user);
+        long loggedInUserId = (user == null) ? 0 : user.getId();
+        model.addAttribute("loggedInUserId", loggedInUserId);
         model.addAttribute("memeService", memeService);
         return "meme-page";
     }
@@ -111,22 +113,6 @@ public class MemeController {
         model.addAttribute("loggedInUser", user);
         return "index";
     }
-
-    @GetMapping("/category")
-    public String showCategoryPage() {
-
-        return "category";
-    }
-
-
-
-
- /*   @GetMapping("/category")
-    public String showCategoryPage(Model model) {
-        List<Meme> memes = memeService.getAllMemes();  // Or any other logic to retrieve all memes
-        model.addAttribute("memes", memes);
-        return "category";
-    }*/
 
     @GetMapping("/search")
     public String showSearchResult(@RequestParam("query") String query, @AuthenticationPrincipal User user, Model model) {
@@ -199,7 +185,7 @@ public class MemeController {
         model.addAttribute("memeService", memeService);
         model.addAttribute("commentService", commentService);
         model.addAttribute("loggedInUser", user);
-        model.addAttribute("category", category);
+        model.addAttribute("category", category.getName());
         return "category";
     }
 
