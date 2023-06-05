@@ -195,5 +195,13 @@ public class MemeController {
         return "redirect:/";
     }
 
+    @PostMapping("meme-page/{memeId}/comment/{commentId}")
+    public String deleteComment(@PathVariable("memeId") Long memeId,
+                                @PathVariable("commentId") Long id,
+                                @AuthenticationPrincipal User user) {
+        commentService.deleteComment(id, user);
+        return "redirect:/meme-page/{memeId}";
+    }
+
 
 }

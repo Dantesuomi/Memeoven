@@ -107,8 +107,13 @@
               <div th:each="c : ${comment}" class="comment-container">
                 <img class="avatar" th:src="@{'/avatars/' + ${c.getUser().getNameOfProfilePhoto()}}">
                 <div>
-                  <span class="username text-warning" th:text="${'@' + c.getUser().getUsername()}"></span>
-                  <span class="date text-warning" th:text="${c.getCreatedAt()}"></span>
+                  <form th:action="'/meme-page/' + ${memeId} + '/comment/' + ${c.getId()}" method="post">
+                    <span class="username text-warning" th:text="${'@' + c.getUser().getUsername()}"></span>
+                    <span class="date text-warning" th:text="${c.getCreatedAt()}"></span>
+                    <button type="submit" class="btn" th:if="${loggedInUser.getId() == c.getUser().getId()}">
+                      <img th:src="@{/images/delete.svg}" alt="delete" style="width: 18px;" class="square">
+                    </button>
+                  </form>
                   <div class="comment" th:text="${c.getComment()}"></div>
                 </div>
               </div>

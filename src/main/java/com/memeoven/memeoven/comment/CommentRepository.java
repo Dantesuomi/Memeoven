@@ -16,4 +16,10 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     void deleteCommentsByMeme(Meme meme);
 
     Integer countCommentsByMeme(Meme meme);
+
+    @Override
+    void deleteById(Long id);
+
+
+    Comment getCommentById(Long id);
 }
