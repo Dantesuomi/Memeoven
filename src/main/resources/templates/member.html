@@ -56,40 +56,7 @@
       </div>
       <div class="mt-5 ms-5 mb-5">
         <h4 class="text-white fonts bold text-center mt-5">My ugly collection</h4>
-        <div th:each="meme: ${memes}">
-          <div style="margin-bottom: 50px;"> <!-- foreach meme to this div-->
-            <div class="mt-5 text-center">
-          <span class="fonts">
-            <a class="text-white" th:text="${meme.title}" th:href="@{'/meme-page/' + ${meme.getId()}}"></a>
-          </span>
-            </div>
-            <div class="text-center">
-              <a th:href="@{'/meme-page/' + ${meme.getId()}}">
-                <img th:src="'/memes/' + ${meme.nameOfMemePhoto}" class="custom-image">
-              </a>
-            </div>
-            <div class="button-container text-center text-warning" style="margin-top: 20px;">
-              <button type="button" class="btn" th:onclick="'likeMeme(\'' + ${meme.getId()} + '\')'">
-                <img th:src="@{/images/like.svg}" alt="like" style="width: 18px;" class="square">
-              </button>
-              <span th:id="'meme' + ${meme.getId()}" th:text="${memeService.getLikeCount(meme)}"></span>
-              <button type="button" class="btn" th:onclick="'window.location.href=\'/meme-page/' + ${meme.getId()} + '#comment\''">
-                <img th:src="@{/images/comments.svg}" alt="comment" style="width: 18px;" class="square">
-              </button>
-              <span id="commentCount" th:text="${commentService.getCommentCountByMemeId(meme)}"></span>
-              <button type="button" class="btn" th:onclick="'saveToFavourite(\'' + ${meme.getId()} + '\')'"> <!--saveClicked()-->
-                <img th:if="${memeService.isUserFavouriteMeme(meme.getId(), loggedInUser)}" th:src="@{/images/save_clicked.svg}" th:id="'favouriteMeme' + ${meme.getId()}" alt="save" style="width: 16px;" class="square">
-                <img th:unless="${memeService.isUserFavouriteMeme(meme.getId(), loggedInUser)}" th:src="@{/images/save.svg}" th:id="'favouriteMeme' + ${meme.getId()}" alt="save" style="width: 16px;" class="square">
-              </button>
-              <span>
-             <a href="https://example.com/user-profile" class="link-style" th:text="'@' + ${meme.getUser().getUsername()}"></a>
-            </span>
-            </div>
-            <div class="text-center mt-3">
-              <button type="button" class="btn grey text-white button-position text-lowercase" th:text="${meme.getCategory()}"></button>
-            </div>
-          </div> <!-- foreach meme to this div-->
-      </div>
+        <div th:replace="~{fragments/render-memes :: render-memes}"></div>
     </div>
   </div>
 </div>
