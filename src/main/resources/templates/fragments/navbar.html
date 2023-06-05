@@ -15,9 +15,9 @@
           </div>
         </form>
         <a th:href="@{/login}" class="btn btn-dark me-2 text-white" th:if="${loggedIn == false}">Log in</a>
-        <button class="btn btn-dark me-2 text-white" th:if="${loggedIn == true}" disabled>Not you?</button>
-        <a th:href="@{/logout}" class="btn btn-warning me-2" th:if="${loggedIn == true}">Log out</a>
         <a th:href="@{/register}" class="btn btn-warning" th:unless="${loggedIn == true}">Sign up</a>
+        <a th:href="@{/logout}" class="btn btn-dark me-2 text-white" th:if="${loggedIn == true}">Log out</a>
+        <a th:href="@{/upload}" class="btn btn-warning" th:if="${loggedIn == true}">Upload meme</a>
       </div>
     </div>
   </nav>

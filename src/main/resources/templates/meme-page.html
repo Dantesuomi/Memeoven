@@ -78,7 +78,7 @@
             <span class="ms-5 text-white fonts" th:text="'@'+${user}"></span>
           </div>
           <!--TODO HERE-->
-          <form th:if="${userId==loggedInUser.getId()}" th:action="'/meme-page/' + ${memeId} + '/delete'" method="post">
+          <form th:if="${userId==loggedInUserId}" th:action="'/meme-page/' + ${memeId} + '/delete'" method="post">
             <button class="mt-2 btn btn-danger fonts btn-sm" type="submit">Delete meme</button>
           </form>
         </div>
