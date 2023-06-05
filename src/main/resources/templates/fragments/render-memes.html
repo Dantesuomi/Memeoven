@@ -28,7 +28,7 @@
             </span>
         </div>
         <div class="text-center mt-3">
-            <a th:href="'/category/' + ${meme.getCategory().getName()}" class="btn grey me-2 text-white ${selectedCategory == 'gaming' ? 'selected' : ''}" th:text="${meme.getCategory().getName()}"></a>
+            <a th:href="'/category/' + ${meme.getCategory().getName()}" class="btn grey me-2 text-white" th:text="${meme.getCategory().getName()}"></a>
         </div>
     </div> <!-- foreach meme to this div-->
 </div>

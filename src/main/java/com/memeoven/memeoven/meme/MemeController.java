@@ -52,7 +52,7 @@ public class MemeController {
         }
         Integer likeCount = memeService.getLikeCount(meme);
         Integer commentCount = commentService.getCommentCountByMemeId(meme);
-        String memeCategory = String.valueOf(meme.getCategory());
+        String memeCategory = String.valueOf(meme.getCategory().getName());
         model.addAttribute("memeName", meme.getTitle());
         model.addAttribute("memeCategory", memeCategory);
         model.addAttribute("user", meme.getUser().getUsername());

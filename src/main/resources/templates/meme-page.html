@@ -60,7 +60,7 @@
         <h2 class="mt-5 ms-5 text-white text-start" th:text="${memeName}"></h2>
         <div class="form-control text-start bg-custom-dark-lighter border-0">
           <a>
-            <img th:src="@{'/memes/' + ${image}}" alt="meme" style="width: 300px;" class="square">
+            <img th:src="@{'/memes/' + ${image}}" alt="meme" class="custom-image">
           </a>
           <div class="button-container text-warning">
             <button type="button" class="btn" th:onclick="'likeMeme(\'' + ${memeId} + '\')'">
@@ -83,7 +83,7 @@
           </form>
         </div>
         <div class="mt-5 mb-5">
-          <button type="button" class="btn grey me-2 text-white text-lowercase" th:text="${memeCategory}"></button>
+          <a th:href="'/category/' + ${memeCategory}" class="btn grey me-2 text-white" th:text="${memeCategory}"></a>
         </div>
         <form method="post" th:action="@{'/meme-page/' + ${memeId} + '/comment'}">
           <div class="text-start">
