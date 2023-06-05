@@ -119,8 +119,6 @@ public class MemeController {
     }
 
 
-
-
  /*   @GetMapping("/category")
     public String showCategoryPage(Model model) {
         List<Meme> memes = memeService.getAllMemes();  // Or any other logic to retrieve all memes
@@ -207,6 +205,14 @@ public class MemeController {
     public String deleteMeme(@PathVariable("memeId") Long memeId, @AuthenticationPrincipal User user) {
         memeService.deleteMeme(memeId, user);
         return "redirect:/";
+    }
+
+    @PostMapping("meme-page/{memeId}/comment/{commentId}")
+    public String deleteComment(@PathVariable("memeId") Long memeId,
+                                @PathVariable("commentId") Long id,
+                                @AuthenticationPrincipal User user) {
+        commentService.deleteComment(id, user);
+        return "redirect:/meme-page/{memeId}";
     }
 
 

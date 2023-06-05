@@ -130,7 +130,6 @@ public class MemeService {
         List<Long> topMemeIds = memeLikeRepository.getTopLikedMemeIds();
         List<Meme> topLikedMemes = memeRepository.getMemesById(topMemeIds);
 
-        // Sort the memes based on the order of topMemeIds
         Map<Long, Meme> memeMap = topLikedMemes.stream()
                 .collect(Collectors.toMap(Meme::getId, Function.identity()));
         List<Meme> sortedMemes = topMemeIds.stream()

@@ -1,5 +1,6 @@
 package com.memeoven.memeoven.comment;
 
+import com.memeoven.memeoven.exceptions.ForbiddenException;
 import com.memeoven.memeoven.meme.Meme;
 import com.memeoven.memeoven.meme.MemeRepository;
 import com.memeoven.memeoven.user.User;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -35,5 +37,17 @@ public class CommentService {
     public Integer getCommentCountByMemeId(Meme meme) {
         Integer commentCount = commentRepository.countCommentsByMeme(meme);
         return commentCount;
+    }
+
+
+    public void deleteComment(Long id, User user) {
+        Comment commentToDelete = commentRepository.getCommentById(id);
+        Long commentUserId = commentToDelete.getUser().getId();
+        Long userId = user.getId();
+        if (Objects.equals(commentUserId, userId)){
+            commentRepository.deleteById(id);
+        }else {
+            throw new ForbiddenException();
+        }
     }
 }

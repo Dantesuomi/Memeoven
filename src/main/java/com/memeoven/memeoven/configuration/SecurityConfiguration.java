@@ -41,6 +41,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/member/{userId}").authenticated()
                                 .requestMatchers("/profile/favourites").authenticated()
                                 .requestMatchers("/profile/my-uploads").authenticated()
+                                .requestMatchers("/meme-page/{memeId}/comment/{commentId}").authenticated()
                                 .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/comment").authenticated()
                                 .requestMatchers(HttpMethod.POST,"/like/{memeId}").authenticated()
                                 .requestMatchers(HttpMethod.POST,"/meme/{memeId}/favourite").authenticated()
@@ -48,6 +49,8 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET,"/like/{memeId}/userLiked").authenticated()
                                 .requestMatchers(HttpMethod.GET,"/category/{category}").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/delete").authenticated()
+                                .requestMatchers(HttpMethod.POST,"/meme-page/{memeId}/comment/{commentId}").authenticated()
+                                .requestMatchers(HttpMethod.GET,"/meme-page/{memeId}/comment/{commentId}").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/css/**", "/images/**","/memes/**", "/avatars/**", "/favicon.ico", "/script/**").permitAll()
 
                                 //.anyRequest().permitAll()
