@@ -12,6 +12,7 @@ The project aims to create a modern and responsive website with meme using the S
 - User profile management (avatar change, profile description, date of birth, gender)
 - Meme upload (image, name and category)
 - User interaction with meme (comment, save to favorites, like)
+- Search functionality (by name and by category)
 - Delete functionality for user-authors(delete meme, delete comment)
 
 ## Technologies Used
@@ -84,6 +85,24 @@ spring.datasource.username
 │               └── memeoven
 │                   └── memeoven
 ```
+
+## Team Members
+
+### Yevheniia 
+
+- Role: Idea&Design, Backend
+- GitHub: [Dantesuomi](https://github.com/Dantesuomi)
+
+### Ļubova
+
+- Role: Frontend/Backend
+- GitHub: [Lubova212](https://github.com/Lubova212)
+
+### Rasa
+
+- Role: Frontend/Backend
+- GitHub: [RasaArn](https://github.com/RasaArn)
+
 ## Acknowledgements
 
 - [Spring Boot](https://spring.io/projects/spring-boot)
