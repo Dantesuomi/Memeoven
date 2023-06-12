@@ -12,7 +12,8 @@ The project aims to create a modern and responsive website with meme using the S
 - User profile management (avatar change, profile description, date of birth, gender)
 - Meme upload (image, name and category)
 - User interaction with meme (comment, save to favorites, like)
-- Search functionality (by name and by category)
+- Search functionality (by name)
+- Sort functionality (by adding date, by likes and by category)
 - Delete functionality for user-authors(delete meme, delete comment)
 
 ## Technologies Used
