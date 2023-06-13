@@ -92,7 +92,6 @@ public class MemeController {
     @ResponseBody
     public boolean isFavouriteMeme(@AuthenticationPrincipal User user, @PathVariable("memeId") Long memeId){
         boolean isFavouriteMeme = memeService.isUserFavouriteMeme(memeId, user);
-        memeService.saveMemeLike(memeId, user);
         return isFavouriteMeme;
     }
 
